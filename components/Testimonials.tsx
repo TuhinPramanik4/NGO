@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Quote } from "lucide-react";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
@@ -23,8 +24,14 @@ export default function Testimonials() {
               {t.quote}
             </p>
             <div className="mt-6 flex items-center gap-3 border-t border-brand-50 pt-5">
-              <span className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 font-display text-sm font-bold text-white">
-                {t.name.slice(0, 1)}
+              <span className="relative h-11 w-11 overflow-hidden rounded-full ring-2 ring-brand-100">
+                <Image
+                  src={t.image}
+                  alt={t.name}
+                  fill
+                  sizes="44px"
+                  className="object-cover"
+                />
               </span>
               <div>
                 <p className="text-sm font-semibold text-brand-900">{t.name}</p>

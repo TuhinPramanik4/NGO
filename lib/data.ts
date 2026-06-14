@@ -7,6 +7,7 @@ import {
   Flame,
   type LucideIcon,
 } from "lucide-react";
+import { px, pool } from "./images";
 
 export const org = {
   name: "Shatakshi Seva Sansthan",
@@ -52,6 +53,7 @@ export type Program = {
   objectives: string[];
   highlights: { label: string; value: string }[];
   donationCategory: string;
+  image: string;
 };
 
 export const programs: Program[] = [
@@ -79,6 +81,7 @@ export const programs: Program[] = [
       { label: "Population impacted", value: "40,000+" },
     ],
     donationCategory: "Education Donation",
+    image: px(pool.school[0], 1100, 850),
   },
   {
     slug: "voice-of-silence",
@@ -104,6 +107,7 @@ export const programs: Program[] = [
       { label: "Outcome", value: "Lower child marriage" },
     ],
     donationCategory: "Women Empowerment",
+    image: px(pool.women[0], 1100, 850),
   },
   {
     slug: "annapurna-kitchen",
@@ -129,6 +133,7 @@ export const programs: Program[] = [
       { label: "Cost", value: "Free, daily" },
     ],
     donationCategory: "Food Donation",
+    image: px(pool.food[0], 1100, 850),
   },
   {
     slug: "free-ambulance-service",
@@ -154,6 +159,7 @@ export const programs: Program[] = [
       { label: "Availability", value: "24 × 7" },
     ],
     donationCategory: "Ambulance Support",
+    image: px(pool.ambulance[1], 1100, 850),
   },
   {
     slug: "disaster-water-preservation",
@@ -179,6 +185,7 @@ export const programs: Program[] = [
       { label: "Focus", value: "Preparedness" },
     ],
     donationCategory: "Disaster Relief",
+    image: px(pool.flood[0], 1100, 850),
   },
   {
     slug: "antim-vidai",
@@ -204,6 +211,7 @@ export const programs: Program[] = [
       { label: "Principle", value: "Dignity for all" },
     ],
     donationCategory: "General Donation",
+    image: px(pool.diya[0], 1100, 850),
   },
 ];
 
@@ -213,6 +221,7 @@ export type Story = {
   program: string;
   summary: string;
   color: string;
+  image: string;
 };
 
 export const stories: Story[] = [
@@ -223,6 +232,7 @@ export const stories: Story[] = [
     summary:
       "Where parents once carried guns, their children now carry pens. Four centres now teach nearly 800 first-generation learners across the diara belt.",
     color: "from-brand-500 to-brand-700",
+    image: px(pool.school[1], 800, 600),
   },
   {
     title: "Rishita clears the Sainik School exam",
@@ -231,6 +241,7 @@ export const stories: Story[] = [
     summary:
       "A daughter of the diara region, mentored at a Shatakshi centre, qualified the All-India Sainik School written examination — an inspiration for an entire community.",
     color: "from-rose-500 to-rose-700",
+    image: px(pool.women[1], 800, 600),
   },
   {
     title: "47 elders, one hot meal, every single day",
@@ -239,6 +250,7 @@ export const stories: Story[] = [
     summary:
       "Maa Shatakshi Annapurna Kitchen carries fresh food to the doorsteps of 47 abandoned elders daily, across a 12 km radius — covered by Dainik Jagran and ETV Bharat.",
     color: "from-saffron-500 to-saffron-700",
+    image: px(pool.food[1], 800, 600),
   },
   {
     title: "183 lives moved to safety during COVID-19",
@@ -247,6 +259,7 @@ export const stories: Story[] = [
     summary:
       "When help was nowhere to be found, the free ambulance carried 183 COVID patients to care and returned 48 of the deceased to their families with dignity.",
     color: "from-sky-500 to-sky-700",
+    image: px(pool.ambulance[0], 800, 600),
   },
   {
     title: "A brother's grief becomes 1,200 farewells",
@@ -255,6 +268,7 @@ export const stories: Story[] = [
     summary:
       "A single question on a riverbank set Naveen Shrivastava on a path that has given dignified last rites to more than 1,200 unidentified people.",
     color: "from-amber-600 to-orange-800",
+    image: px(pool.diya[1], 800, 600),
   },
   {
     title: "1,000+ documents made during the pandemic",
@@ -263,6 +277,7 @@ export const stories: Story[] = [
     summary:
       "Through a 24×7 helpline, the team linked villagers to ration cards, MGNREGA job cards, Ayushman cards and widow pensions — over 1,000 made during COVID-19.",
     color: "from-emerald-500 to-emerald-700",
+    image: px(pool.volunteer[0], 800, 600),
   },
 ];
 
@@ -270,6 +285,7 @@ export type Testimonial = {
   quote: string;
   name: string;
   role: string;
+  image: string;
 };
 
 export const testimonials: Testimonial[] = [
@@ -278,18 +294,21 @@ export const testimonials: Testimonial[] = [
       "Where there was once a gun in a parent's hand, today there is a pen in their child's. That is the change Shatakshi has brought to our village.",
     name: "A parent",
     role: "Khap Maksudpur",
+    image: px(pool.portrait[0], 200, 200),
   },
   {
     quote:
       "I am the first in my family to read and write. My teachers at the centre believed in me before I believed in myself.",
     name: "A student",
     role: "Mission Arms to Pen",
+    image: px(pool.women[3], 200, 200),
   },
   {
     quote:
       "When no ambulance would come, Shatakshi Life Line did — at midnight, in the flood, for free. They saved my mother.",
     name: "A villager",
     role: "Diara region",
+    image: px(pool.portrait[2], 200, 200),
   },
 ];
 
@@ -328,6 +347,7 @@ export const blogPosts = [
     excerpt:
       "Of 234 panchayats in the district, around 155 have no high school. Here is why every additional learning centre changes lives.",
     color: "from-brand-500 to-brand-700",
+    image: px(pool.school[2], 900, 600),
   },
   {
     title: "Maa Shatakshi Annapurna Kitchen featured in Dainik Jagran",
@@ -336,6 +356,7 @@ export const blogPosts = [
     excerpt:
       "A small initiative that now reaches the homes of helpless elders across a 12 km radius — covered by leading newspapers.",
     color: "from-saffron-500 to-saffron-700",
+    image: px(pool.food[2], 900, 600),
   },
   {
     title: "Voice of Silence: ending child marriage through education",
@@ -344,6 +365,7 @@ export const blogPosts = [
     excerpt:
       "How connecting girls to health, mental and skill education is quietly transforming the future of the diara region.",
     color: "from-rose-500 to-rose-700",
+    image: px(pool.women[2], 900, 600),
   },
   {
     title: "Preparing for the flood season with Jal Pathshala",
@@ -352,6 +374,7 @@ export const blogPosts = [
     excerpt:
       "Every year the diara region floods. Here is what families learn at our 'water school' to keep themselves safe.",
     color: "from-cyan-500 to-cyan-700",
+    image: px(pool.flood[1], 900, 600),
   },
 ];
 

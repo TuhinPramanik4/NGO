@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowUpRight, Calendar } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
@@ -52,9 +53,18 @@ export default function BlogPage() {
         {/* Featured */}
         <Reveal className="mt-10">
           <article className="group grid overflow-hidden rounded-3xl border border-brand-100 bg-white shadow-[0_16px_50px_-30px_rgba(20,81,47,0.5)] lg:grid-cols-2">
-            <div className={`relative min-h-64 bg-gradient-to-br ${featured.color} p-8`}>
-              <div className="bg-dot-grid absolute inset-0 opacity-10" />
-              <span className="relative inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+            <div className="relative min-h-64 overflow-hidden">
+              <Image
+                src={featured.image}
+                alt={featured.title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div
+                className={`absolute inset-0 bg-gradient-to-t ${featured.color} opacity-40 mix-blend-multiply`}
+              />
+              <span className="absolute left-6 top-6 inline-flex rounded-full bg-black/30 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
                 {featured.category}
               </span>
             </div>
@@ -80,9 +90,18 @@ export default function BlogPage() {
           {rest.map((post, i) => (
             <Reveal key={post.title} delay={i * 100}>
               <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-brand-100 bg-white shadow-[0_12px_40px_-28px_rgba(20,81,47,0.4)] transition-all hover:-translate-y-1.5">
-                <div className={`relative aspect-[16/9] bg-gradient-to-br ${post.color} p-5`}>
-                  <div className="bg-dot-grid absolute inset-0 opacity-10" />
-                  <span className="relative inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                <div className="relative aspect-[16/9] overflow-hidden">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-t ${post.color} opacity-40 mix-blend-multiply`}
+                  />
+                  <span className="absolute left-4 top-4 inline-flex rounded-full bg-black/30 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
                     {post.category}
                   </span>
                 </div>

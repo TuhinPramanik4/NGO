@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
@@ -54,11 +55,19 @@ export default function ProgramsPage() {
               >
                 {/* Visual */}
                 <div className={reversed ? "lg:order-2" : ""}>
-                  <div
-                    className={`relative flex aspect-[4/3] flex-col justify-between overflow-hidden rounded-[2rem] bg-gradient-to-br ${program.color} p-8 text-white shadow-xl`}
-                  >
-                    <div className="bg-dot-grid absolute inset-0 opacity-10" />
-                    <span className="relative grid h-16 w-16 place-items-center rounded-2xl bg-white/15 backdrop-blur">
+                  <div className="relative flex aspect-[4/3] flex-col justify-between overflow-hidden rounded-[2rem] p-8 text-white shadow-xl">
+                    <Image
+                      src={program.image}
+                      alt={program.name}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-tr ${program.color} opacity-80 mix-blend-multiply`}
+                    />
+                    <div className="absolute inset-0 bg-black/15" />
+                    <span className="relative grid h-16 w-16 place-items-center rounded-2xl bg-white/20 backdrop-blur ring-1 ring-white/30">
                       <Icon className="h-8 w-8" />
                     </span>
                     <div className="relative">

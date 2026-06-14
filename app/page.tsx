@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Quote } from "lucide-react";
 import Hero from "@/components/Hero";
+import { px, pool } from "@/lib/images";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Counter from "@/components/Counter";
@@ -80,16 +82,26 @@ export default function HomePage() {
 
           <Reveal delay={150} className="grid gap-4 sm:grid-cols-3">
             {[
-              { word: "Shiksha", en: "Education", grad: "from-brand-500 to-brand-700" },
-              { word: "Seva", en: "Service", grad: "from-saffron-500 to-saffron-700" },
-              { word: "Jagrukta", en: "Awareness", grad: "from-sky-500 to-sky-700" },
+              { word: "Shiksha", en: "Education", grad: "from-brand-600/85 to-brand-900/90", img: px(pool.school[4], 500, 700) },
+              { word: "Seva", en: "Service", grad: "from-saffron-600/80 to-saffron-900/90", img: px(pool.food[3], 500, 700) },
+              { word: "Jagrukta", en: "Awareness", grad: "from-sky-700/80 to-sky-950/90", img: px(pool.volunteer[1], 500, 700) },
             ].map((c) => (
               <div
                 key={c.word}
-                className={`flex flex-col justify-end rounded-3xl bg-gradient-to-br ${c.grad} p-6 text-white shadow-lg sm:aspect-[3/4]`}
+                className="relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-3xl p-6 text-white shadow-lg"
               >
-                <p className="font-display text-xl font-bold">{c.word}</p>
-                <p className="text-sm text-white/80">{c.en}</p>
+                <Image
+                  src={c.img}
+                  alt={c.en}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 16vw"
+                  className="object-cover"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-t ${c.grad}`} />
+                <p className="relative font-display text-xl font-bold drop-shadow">
+                  {c.word}
+                </p>
+                <p className="relative text-sm text-white/85 drop-shadow">{c.en}</p>
               </div>
             ))}
           </Reveal>
@@ -149,11 +161,18 @@ export default function HomePage() {
           {stories.slice(0, 3).map((s, i) => (
             <Reveal key={s.title} delay={i * 100}>
               <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-brand-100 bg-white shadow-[0_12px_40px_-28px_rgba(20,81,47,0.4)]">
-                <div
-                  className={`relative aspect-[16/10] bg-gradient-to-br ${s.color} p-6`}
-                >
-                  <div className="bg-dot-grid absolute inset-0 opacity-10" />
-                  <span className="relative inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={s.image}
+                    alt={s.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-t ${s.color} opacity-45 mix-blend-multiply`}
+                  />
+                  <span className="absolute left-4 top-4 inline-flex rounded-full bg-black/30 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
                     {s.program}
                   </span>
                 </div>

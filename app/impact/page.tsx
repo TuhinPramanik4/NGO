@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
@@ -41,12 +42,21 @@ export default function ImpactPage() {
           {stories.map((s, i) => (
             <Reveal key={s.title} delay={(i % 3) * 100}>
               <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-brand-100 bg-white shadow-[0_12px_40px_-28px_rgba(20,81,47,0.4)] transition-all hover:-translate-y-1.5 hover:shadow-[0_24px_60px_-24px_rgba(20,81,47,0.45)]">
-                <div className={`relative aspect-[16/10] bg-gradient-to-br ${s.color} p-6`}>
-                  <div className="bg-dot-grid absolute inset-0 opacity-10" />
-                  <span className="relative inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={s.image}
+                    alt={s.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-t ${s.color} opacity-45 mix-blend-multiply`}
+                  />
+                  <span className="absolute left-4 top-4 inline-flex rounded-full bg-black/30 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
                     {s.program}
                   </span>
-                  <ArrowUpRight className="absolute bottom-5 right-5 h-6 w-6 text-white/70 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <ArrowUpRight className="absolute bottom-5 right-5 h-6 w-6 text-white/90 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   <p className="text-xs font-medium uppercase tracking-wide text-brand-600">

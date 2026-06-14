@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Target, Eye, Award, MapPin, CheckCircle2 } from "lucide-react";
+import { px, pool } from "@/lib/images";
 import PageHeader from "@/components/PageHeader";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
@@ -104,6 +106,31 @@ export default function AboutPage() {
             </div>
           </Reveal>
         </div>
+      </section>
+
+      {/* Image banner */}
+      <section className="container-page pb-4">
+        <Reveal className="relative overflow-hidden rounded-[2rem] shadow-xl">
+          <div className="relative aspect-[21/9] w-full">
+            <Image
+              src={px(pool.village[2], 1600, 700)}
+              alt="A village in the flood-affected diara belt of Gopalganj"
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-950/80 via-brand-950/40 to-transparent" />
+            <div className="absolute inset-0 flex flex-col justify-center p-8 sm:p-14">
+              <p className="max-w-xl font-display text-2xl font-bold leading-snug text-white sm:text-3xl">
+                &ldquo;People here don&apos;t die in the flood first — their
+                dreams do.&rdquo;
+              </p>
+              <p className="mt-3 text-sm text-brand-100/80">
+                The diara region of Gopalganj, our karmabhoomi since 2011.
+              </p>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
       {/* Where we work */}

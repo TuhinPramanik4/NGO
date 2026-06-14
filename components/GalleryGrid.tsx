@@ -1,34 +1,35 @@
 "use client";
 
 import { useState } from "react";
-import { Camera, Play } from "lucide-react";
+import Image from "next/image";
 import { galleryCategories } from "@/lib/data";
+import { px, pool } from "@/lib/images";
 
 type Item = {
   title: string;
   category: string;
-  color: string;
-  video?: boolean;
+  src: string;
   span?: boolean;
 };
 
 const items: Item[] = [
-  { title: "First day at Khap Maksudpur centre", category: "Education", color: "from-brand-500 to-brand-700", span: true },
-  { title: "Annapurna Kitchen meal round", category: "Food Distribution", color: "from-saffron-500 to-saffron-700" },
-  { title: "Life Line ambulance on call", category: "Ambulance Service", color: "from-sky-500 to-sky-700" },
-  { title: "Flood relief in the diara belt", category: "Disaster Relief", color: "from-cyan-500 to-cyan-700" },
-  { title: "Voice of Silence workshop", category: "Education", color: "from-rose-500 to-rose-700" },
-  { title: "Republic Day at the centre", category: "Events", color: "from-emerald-500 to-emerald-700", video: true },
-  { title: "Maha Aarti, Manikpur", category: "Events", color: "from-amber-500 to-orange-700" },
-  { title: "Feeding 47 elders, daily", category: "Food Distribution", color: "from-saffron-600 to-saffron-800", span: true },
-  { title: "Water awareness drive", category: "Disaster Relief", color: "from-teal-500 to-teal-700" },
-  { title: "Children of Nawada Diyara", category: "Education", color: "from-brand-600 to-brand-800" },
-  { title: "Patient transport to Sadar", category: "Ambulance Service", color: "from-blue-500 to-blue-700" },
-  { title: "Award felicitation event", category: "Events", color: "from-violet-500 to-violet-700" },
+  { title: "First day at Khap Maksudpur centre", category: "Education", src: px(pool.school[1], 900, 900), span: true },
+  { title: "Annapurna Kitchen meal round", category: "Food Distribution", src: px(pool.food[1], 600, 600) },
+  { title: "Life Line ambulance on call", category: "Ambulance Service", src: px(pool.ambulance[1], 600, 600) },
+  { title: "Flood relief in the diara belt", category: "Disaster Relief", src: px(pool.flood[1], 600, 600) },
+  { title: "Voice of Silence workshop", category: "Education", src: px(pool.women[1], 600, 600) },
+  { title: "Community gathering at the centre", category: "Events", src: px(pool.volunteer[1], 600, 600) },
+  { title: "A diya for the forgotten", category: "Events", src: px(pool.diya[1], 600, 600) },
+  { title: "Feeding 47 elders, daily", category: "Food Distribution", src: px(pool.food[3], 900, 900), span: true },
+  { title: "Water awareness drive", category: "Disaster Relief", src: px(pool.village[2], 600, 600) },
+  { title: "Children of Nawada Diyara", category: "Education", src: px(pool.school[5], 600, 600) },
+  { title: "Patient transport to Sadar Hospital", category: "Ambulance Service", src: px(pool.ambulance[2], 600, 600) },
+  { title: "Volunteers of Team Shatakshi", category: "Events", src: px(pool.volunteer[4], 600, 600) },
 ];
 
 export default function GalleryGrid() {
   const [active, setActive] = useState("All");
+  const [lightbox, setLightbox] = useState<Item | null>(null);
   const filtered =
     active === "All" ? items : items.filter((i) => i.category === active);
 
@@ -54,27 +55,28 @@ export default function GalleryGrid() {
       {/* Grid */}
       <div className="mt-10 grid auto-rows-[200px] grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {filtered.map((item, i) => (
-          <figure
+          <button
             key={item.title + i}
-            className={`group relative cursor-pointer overflow-hidden rounded-2xl bg-gradient-to-br ${
-              item.color
-            } shadow-lg ${item.span ? "sm:col-span-2 sm:row-span-2" : ""}`}
+            onClick={() => setLightbox(item)}
+            className={`group relative overflow-hidden rounded-2xl bg-brand-100 text-left shadow-lg ${
+              item.span ? "sm:col-span-2 sm:row-span-2" : ""
+            }`}
           >
-            <div className="bg-dot-grid absolute inset-0 opacity-10" />
-            <div className="absolute inset-0 grid place-items-center text-white/40 transition-transform duration-500 group-hover:scale-110">
-              {item.video ? (
-                <Play className="h-12 w-12 fill-white/30" />
-              ) : (
-                <Camera className="h-10 w-10" />
-              )}
-            </div>
-            <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <Image
+              src={item.src}
+              alt={item.title}
+              fill
+              sizes="(max-width: 640px) 50vw, 25vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 transition-opacity group-hover:opacity-90" />
+            <figcaption className="absolute inset-x-0 bottom-0 translate-y-2 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
               <span className="text-[11px] font-semibold uppercase tracking-wide text-saffron-200">
                 {item.category}
               </span>
               <p className="text-sm font-medium text-white">{item.title}</p>
             </figcaption>
-          </figure>
+          </button>
         ))}
       </div>
 
@@ -82,6 +84,30 @@ export default function GalleryGrid() {
         <p className="mt-12 text-center text-ink/50">
           No items in this category yet.
         </p>
+      )}
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          onClick={() => setLightbox(null)}
+          className="fixed inset-0 z-[60] grid place-items-center bg-black/80 p-4 backdrop-blur-sm"
+        >
+          <div className="relative max-h-[85vh] w-full max-w-3xl overflow-hidden rounded-2xl">
+            <Image
+              src={lightbox.src.replace(/w=\d+&h=\d+/, "w=1400&h=1000")}
+              alt={lightbox.title}
+              width={1400}
+              height={1000}
+              className="h-auto w-full object-contain"
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5">
+              <span className="text-xs font-semibold uppercase tracking-wide text-saffron-300">
+                {lightbox.category}
+              </span>
+              <p className="text-lg font-semibold text-white">{lightbox.title}</p>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

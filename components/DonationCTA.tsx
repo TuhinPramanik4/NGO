@@ -1,12 +1,23 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Heart, ArrowRight } from "lucide-react";
 import Reveal from "./Reveal";
 import { donationTiers } from "@/lib/data";
+import { px, pool } from "@/lib/images";
 
 export default function DonationCTA() {
   return (
     <section className="container-page">
       <Reveal className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand-700 via-brand-800 to-brand-950 px-7 py-14 sm:px-14">
+        <Image
+          src={px(pool.school[6], 1400, 800)}
+          alt=""
+          aria-hidden
+          fill
+          sizes="100vw"
+          className="object-cover opacity-15"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-800/80 to-brand-950/90" />
         <div className="bg-dot-grid absolute inset-0 opacity-[0.06]" />
         <div
           className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-saffron-500/20 blur-3xl"

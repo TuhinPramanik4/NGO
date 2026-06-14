@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Play, ShieldCheck, Sparkles } from "lucide-react";
-import { org, impactStats } from "@/lib/data";
+import { org } from "@/lib/data";
+import { px, pool } from "@/lib/images";
 
 export default function Hero() {
   return (
@@ -71,31 +73,38 @@ export default function Hero() {
 
         {/* Visual */}
         <div className="relative animate-fade-up [animation-delay:150ms]">
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand-600 via-brand-700 to-brand-900 p-1 shadow-2xl shadow-brand-900/30">
-            <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-[2.3rem] bg-gradient-to-br from-brand-500/90 to-brand-800 p-8 text-white">
-              <div className="bg-dot-grid absolute inset-0 opacity-10" />
-              <div className="relative">
-                <p className="font-display text-2xl font-bold leading-snug">
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2.5rem] shadow-2xl shadow-brand-900/30">
+            <Image
+              src={px(pool.school[3], 900, 1100)}
+              alt="Children learning at a Shatakshi education centre"
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-950/85 via-brand-900/20 to-transparent" />
+            <div className="absolute inset-x-0 top-0 flex items-start justify-between p-6 text-white">
+              <div>
+                <p className="font-display text-2xl font-bold leading-snug drop-shadow">
                   सेवा परमो धर्मः
                 </p>
-                <p className="mt-1 text-sm text-brand-100/80">
+                <p className="mt-1 text-sm text-white/85 drop-shadow">
                   Service is the supreme duty
                 </p>
               </div>
-              <div className="relative space-y-4">
-                <p className="text-sm leading-relaxed text-brand-50/90">
-                  &ldquo;If this body were your brother, what would you do?&rdquo;
-                  — the question that began a mission of dignity for the
-                  forgotten.
-                </p>
-                <div className="flex items-center gap-3 border-t border-white/15 pt-4">
-                  <span className="grid h-11 w-11 place-items-center rounded-full bg-white/15 font-display font-bold">
-                    NS
-                  </span>
-                  <div>
-                    <p className="font-semibold">{org.founder}</p>
-                    <p className="text-xs text-brand-100/70">Founder</p>
-                  </div>
+            </div>
+            <div className="absolute inset-x-0 bottom-0 space-y-4 p-6 text-white">
+              <p className="text-sm leading-relaxed text-white/90 drop-shadow">
+                &ldquo;If this body were your brother, what would you do?&rdquo; —
+                the question that began a mission of dignity for the forgotten.
+              </p>
+              <div className="flex items-center gap-3 border-t border-white/20 pt-4">
+                <span className="grid h-11 w-11 place-items-center rounded-full bg-white/15 font-display font-bold backdrop-blur">
+                  NS
+                </span>
+                <div>
+                  <p className="font-semibold">{org.founder}</p>
+                  <p className="text-xs text-white/70">Founder</p>
                 </div>
               </div>
             </div>
