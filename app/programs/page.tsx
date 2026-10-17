@@ -9,7 +9,7 @@ import { helpline, org, pillars, programBySlug, tone } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Programs",
   description:
-    "Six programs across education, service and awareness — Mission Arms to Pen, Voice of Silence, Jal Pathshala, Annapurna Kitchen, Shatakshi Life Line and Antim Vidai.",
+"Six programs across education, service and awareness — Mission Arms to Pen, Voice of Silence, Jal Pathshala, Annapurna Kitchen, Shatakshi Life Line and Antim Vidai.",
 };
 
 export default function ProgramsPage() {
@@ -18,12 +18,12 @@ export default function ProgramsPage() {
       <PageHero
         eyebrow="Programs"
         hindi="शिक्षा"
-        title="Three pillars. Six programs. One river valley."
-        intro="Everything we do sits under शिक्षा, सेवा and जागरूकता — education, service and awareness — the three parts of the ring in our mark."
+        title="Our Programmes"
+        intro="Every programme sits under शिक्षा, सेवा and जागरूकता — education, service and awareness — the three parts of the ring in our mark."
       >
         <nav aria-label="Pillars" className="mt-10 flex flex-wrap gap-2">
           {pillars.map((pl) => (
-            <a key={pl.key} href={`#${pl.key}`} className={`rounded-full px-4 py-2 text-sm font-bold ${tone[pl.tone].chip}`}>
+            <a key={pl.key} href={`#${pl.key}`} className={` px-4 py-2 text-sm font-bold ${tone[pl.tone].chip}`}>
               <span className="font-hindi mr-1.5 font-normal">{pl.hindi}</span> {pl.name}
             </a>
           ))}
@@ -50,7 +50,7 @@ export default function ProgramsPage() {
                     <Reveal key={slug} className={`grid items-center gap-10 lg:grid-cols-2 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
                       <Photo src={p.image} alt={p.name} className="aspect-[4/3]" sizes="(min-width: 1024px) 560px, 100vw" />
                       <div>
-                        <span className={`inline-grid h-12 w-12 place-items-center rounded-full ${pt.icon}`}>
+                        <span className={`inline-grid h-12 w-12 place-items-center  ${pt.icon}`}>
                           <Icon className="h-5 w-5" />
                         </span>
                         <p className={`font-hindi mt-5 text-lg ${pt.text}`}>{p.hindiName}</p>
@@ -65,7 +65,7 @@ export default function ProgramsPage() {
                           ))}
                         </dl>
                         <div className="mt-7 flex flex-wrap gap-3">
-                          <Link href={`/programs/${p.slug}`} className="btn btn-dark">Explore program</Link>
+                          <Link href={`/programs/${p.slug}`} className="btn btn-dark">Explore programme</Link>
                           <Link href={`/donate?cause=${encodeURIComponent(p.donationCategory)}`} className="btn btn-ghost">
                             Support this
                           </Link>
@@ -88,7 +88,7 @@ export default function ProgramsPage() {
               <h2 className="font-hindi text-5xl text-sindoor-100">जागरूकता</h2>
               <p className="text-sm font-bold uppercase tracking-[0.16em] text-river-300">Awareness</p>
             </div>
-            <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-bold">
+            <p className="mt-6 inline-flex items-center gap-2  bg-white/10 px-4 py-2 text-sm font-bold">
               <Megaphone className="h-4 w-4 text-marigold-300" /> {helpline.name}
             </p>
           </div>

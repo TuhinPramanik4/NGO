@@ -35,11 +35,11 @@ export default async function ProgramPage({ params }: { params: Promise<Params> 
       <section className="border-b border-line">
         <div className="container-page pb-16 pt-10 sm:pb-20">
           <Link href="/programs" className="inline-flex items-center gap-2 text-sm font-semibold text-ink-soft hover:text-river-900">
-            <ArrowLeft className="h-4 w-4" /> All programs
+            <ArrowLeft className="h-4 w-4" /> All programmes
           </Link>
           <div className="mt-10 grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
-              <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold ${t.chip}`}>
+              <span className={`inline-flex items-center gap-2  px-3 py-1.5 text-xs font-bold ${t.chip}`}>
                 <Icon className="h-4 w-4" />
                 {p.pillar === "shiksha" ? "शिक्षा · Education" : "सेवा · Service"}
               </span>
@@ -81,7 +81,7 @@ export default async function ProgramPage({ params }: { params: Promise<Params> 
               </Reveal>
             )}
             <Reveal className="mt-12">
-              <p className="eyebrow">Program overview</p>
+              <p className="eyebrow">About the programme</p>
               <p className="mt-5 text-xl leading-relaxed text-ink-soft">{p.overview}</p>
             </Reveal>
           </div>
@@ -90,7 +90,7 @@ export default async function ProgramPage({ params }: { params: Promise<Params> 
             <ul className="mt-6 space-y-4">
               {p.objectives.map((o) => (
                 <li key={o} className="flex gap-3">
-                  <span className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full ${t.icon}`}>
+                  <span className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center  ${t.icon}`}>
                     <Check className="h-3.5 w-3.5" strokeWidth={3} />
                   </span>
                   <span className="text-river-950">{o}</span>
@@ -130,7 +130,7 @@ export default async function ProgramPage({ params }: { params: Promise<Params> 
       <section className="py-20 sm:py-28">
         <div className="container-page">
           <div className="flex items-end justify-between gap-6">
-            <SectionHeading eyebrow="Keep exploring" title="Other programs" />
+            <SectionHeading eyebrow="Keep exploring" title="Other programmes" />
             <Link href="/programs" className="hidden items-center gap-1.5 font-bold text-river-800 sm:inline-flex">
               View all <ArrowRight className="h-4 w-4" />
             </Link>

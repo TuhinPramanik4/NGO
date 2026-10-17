@@ -50,7 +50,7 @@ export default function GalleryGrid() {
             role="tab"
             aria-selected={cat === c}
             onClick={() => setCat(c)}
-            className={`rounded-full px-4 py-2 text-sm font-bold transition-colors ${
+            className={` px-4 py-2 text-sm font-bold transition-colors ${
               cat === c ? "bg-river-900 text-sand-50" : "bg-white text-ink-soft ring-1 ring-line hover:text-river-900"
             }`}
           >
@@ -99,16 +99,16 @@ export default function GalleryGrid() {
               {active! + 1} / {items.length} · {current.category}
             </p>
             <div className="flex gap-2">
-              <button onClick={share} aria-label="Share" className="grid h-11 w-11 place-items-center rounded-full bg-white/10 hover:bg-white/20">
+              <button onClick={share} aria-label="Share" className="grid h-11 w-11 place-items-center  bg-white/10 hover:bg-white/20">
                 <Share2 className="h-5 w-5" />
               </button>
-              <button ref={closeRef} onClick={() => setActive(null)} aria-label="Close" className="grid h-11 w-11 place-items-center rounded-full bg-white/10 hover:bg-white/20">
+              <button ref={closeRef} onClick={() => setActive(null)} aria-label="Close" className="grid h-11 w-11 place-items-center  bg-white/10 hover:bg-white/20">
                 <X className="h-5 w-5" />
               </button>
             </div>
           </div>
           <div className="relative flex flex-1 items-center justify-center gap-4 py-6">
-            <button onClick={() => step(-1)} aria-label="Previous" className="hidden h-12 w-12 shrink-0 place-items-center rounded-full bg-white/10 hover:bg-white/20 sm:grid">
+            <button onClick={() => step(-1)} aria-label="Previous" className="hidden h-12 w-12 shrink-0 place-items-center  bg-white/10 hover:bg-white/20 sm:grid">
               <ChevronLeft className="h-6 w-6" />
             </button>
             <Image
@@ -116,10 +116,10 @@ export default function GalleryGrid() {
               alt={current.alt}
               width={current.w}
               height={current.h}
-              className="max-h-[75vh] w-auto max-w-full rounded-xl object-contain"
+              className="max-h-[75vh] w-auto max-w-full  object-contain"
               style={{ width: Math.min(current.w * 1.6, 1100) }}
             />
-            <button onClick={() => step(1)} aria-label="Next" className="hidden h-12 w-12 shrink-0 place-items-center rounded-full bg-white/10 hover:bg-white/20 sm:grid">
+            <button onClick={() => step(1)} aria-label="Next" className="hidden h-12 w-12 shrink-0 place-items-center  bg-white/10 hover:bg-white/20 sm:grid">
               <ChevronRight className="h-6 w-6" />
             </button>
           </div>

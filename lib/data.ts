@@ -40,21 +40,21 @@ export const tone: Record<
   { chip: string; icon: string; text: string; ring: string; solid: string }
 > = {
   river: {
-    chip: "bg-river-50 text-river-700",
+    chip: "text-river-600",
     icon: "bg-river-100 text-river-700",
     text: "text-river-700",
     ring: "ring-river-200",
     solid: "bg-river-800 text-sand-50",
   },
   marigold: {
-    chip: "bg-marigold-50 text-marigold-700",
+    chip: "text-marigold-700",
     icon: "bg-marigold-100 text-marigold-700",
     text: "text-marigold-700",
     ring: "ring-marigold-200",
     solid: "bg-marigold-500 text-river-950",
   },
   sindoor: {
-    chip: "bg-sindoor-50 text-sindoor-600",
+    chip: "text-sindoor-600",
     icon: "bg-sindoor-100 text-sindoor-600",
     text: "text-sindoor-600",
     ring: "ring-sindoor-100",
@@ -285,7 +285,7 @@ export const programs: Program[] = [
     icon: Flame,
     tagline: "For us, no body is ‘unclaimed’. Every soul is a relation.",
     summary:
-      "Dignified last rites for unidentified and abandoned bodies — more than 1,200 so far.",
+      "Dignified last rites for unidentified and abandoned bodies, more than 1,200 so far.",
     origin:
       "Searching the Ganga for his drowned brother, the founder found many unclaimed bodies. A boatman asked: “If this were your brother, what would you do?”",
     overview:
@@ -348,7 +348,7 @@ export const stories: Story[] = [
     slug: "rishita-sainik-school",
     programSlug: "voice-of-silence",
     title: "Rishita clears the Sainik School exam",
-    place: "Voice of Silence",
+    place: "Gopalganj",
     program: "Voice of Silence",
     tone: "sindoor",
     summary:
@@ -370,7 +370,7 @@ export const stories: Story[] = [
     slug: "covid-life-line",
     programSlug: "life-line-ambulance",
     title: "183 patients carried to care during COVID-19",
-    place: "Pandemic response",
+    place: "COVID-19, 2020–21",
     program: "Shatakshi Life Line",
     tone: "marigold",
     summary:
@@ -381,7 +381,7 @@ export const stories: Story[] = [
     slug: "1200-farewells",
     programSlug: "antim-vidai",
     title: "A brother's grief became 1,200 farewells",
-    place: "Antim Vidai",
+    place: "Gopalganj",
     program: "Antim Vidai",
     tone: "marigold",
     summary:
@@ -391,7 +391,7 @@ export const stories: Story[] = [
   {
     slug: "1000-documents",
     title: "1,000+ welfare documents in a pandemic",
-    place: "Shatakshi Helpline",
+    place: "COVID-19, 2020–21",
     program: "Awareness",
     tone: "sindoor",
     summary:
@@ -429,7 +429,7 @@ export const press = ["The Hindu", "BBC Urdu", "ETV Bharat", "Dainik Jagran", "D
 
 export const navLinks = [
   { label: "About", href: "/about" },
-  { label: "Programs", href: "/programs" },
+  { label: "Programmes", href: "/programs" },
   { label: "Impact", href: "/impact" },
   { label: "Gallery", href: "/gallery" },
   { label: "News", href: "/blog" },

@@ -14,8 +14,8 @@ export default function GalleryPage() {
       <PageHero
         eyebrow="Gallery"
         hindi="झलक"
-        title="Unpolished, and real."
-        intro="Photographed on phones by Team Shatakshi — in classrooms, kitchens, ambulances and the flood itself."
+        title="Gallery"
+        intro="Photographs taken by Team Shatakshi in classrooms, kitchens, ambulances and the flood itself."
       />
       <section className="py-16 sm:py-20">
         <div className="container-page">
@@ -24,7 +24,7 @@ export default function GalleryPage() {
       </section>
       <section className="bg-river-950 py-20 sm:py-28">
         <div className="container-page">
-          <SectionHeading tone="light" eyebrow="Video" title="See the work for yourself" />
+          <SectionHeading tone="light" eyebrow="Video" title="A film about our work" />
           <div className="mt-10 aspect-video overflow-hidden rounded-[var(--radius-card)] bg-black">
             <iframe
               src={`https://player.vimeo.com/video/${promoVideo.vimeoId}?dnt=1&title=0&byline=0&portrait=0`}

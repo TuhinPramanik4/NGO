@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, Heart, Phone } from "lucide-react";
 import Reveal from "@/components/Reveal";
-import { Photo, SectionHeading, TextLink } from "@/components/ui";
+import { Ornament, Photo, SectionHeading, TextLink } from "@/components/ui";
 import {
   DonationBand,
   ImpactBand,
@@ -14,126 +13,128 @@ import { helpline, org, pillars, programBySlug, programs, stories, tone } from "
 import { photo } from "@/lib/images";
 
 const diaraFacts = [
-  { value: "155 / 234", label: "panchayats in the district have no high school" },
-  { value: "40%", label: "drop in attendance when floods move schools 5 km away" },
-  { value: "1 in 4", label: "children in the diara drop out before Class 10" },
-  { value: "3–5k", label: "children under 15 migrate for labour every year" },
+  { value: "155 of 234", label: "panchayats in the district have no high school" },
+  { value: "40%", label: "fall in attendance when floods move schools 5 km away" },
+  { value: "1 in 4", label: "children in the diara leave school before Class 10" },
+  { value: "3,000+", label: "children under fifteen migrate for labour each year" },
 ];
 
 export default function Home() {
   return (
     <>
       {/* ---------------- Hero ---------------- */}
-      <section className="relative overflow-hidden">
-        <div className="container-page grid items-center gap-14 pb-20 pt-12 lg:grid-cols-[1.05fr_1fr] lg:pb-28 lg:pt-20">
-          <div>
-            <p className="eyebrow">Gopalganj, Bihar · since {org.established}</p>
-            <h1 className="display mt-6 text-[2.9rem] text-river-950 sm:text-7xl lg:text-[5.2rem]">
-              A hundred eyes for the ones <em className="mark not-italic">no one sees.</em>
-            </h1>
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl">
-              In the flood-hit diara belt of the Gandak river, we run free schools for
-              first-generation learners, carry hot meals to abandoned elders, drive a
-              free 24×7 ambulance and give the unclaimed a dignified farewell.
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link href="/donate" className="btn btn-primary">
-                <Heart className="h-4 w-4" strokeWidth={2.5} /> Donate now
-              </Link>
-              <Link href="/volunteer" className="btn btn-ghost">Become a volunteer</Link>
-              <span className="ml-2 hidden sm:inline">
-                <TextLink href="/about">Learn more</TextLink>
-              </span>
+      <section>
+        <div className="container-page grid gap-14 pb-20 pt-12 sm:pt-16 lg:grid-cols-12 lg:gap-10 lg:pb-24">
+          <div className="lg:col-span-7 lg:pt-6">
+            <div className="rise">
+              <p className="eyebrow">Gopalganj, Bihar · Since {org.established}</p>
             </div>
-            <p className="mt-10 flex items-center gap-3 text-sm text-ink-mute">
-              <span className="font-hindi text-lg text-marigold-600">{org.motto}</span>
-              <span className="h-px w-8 bg-line" />
-              {org.mottoEn}
-            </p>
+            <div className="rise" style={{ animationDelay: "120ms" }}>
+              <h1 className="display mt-7 text-[3.3rem] leading-[0.98] text-ink sm:text-[5.2rem] lg:text-[6.2rem]">
+                Serving those <em>the world forgets.</em>
+              </h1>
+            </div>
+            <div className="rise" style={{ animationDelay: "260ms" }}>
+              <p className="mt-8 max-w-xl font-display text-[1.45rem] italic leading-[1.45] text-ink-soft">
+                Free schooling for first-generation learners, a hot meal at the door of
+                abandoned elders, an ambulance at midnight, and a dignified farewell for
+                the unclaimed: in the flood-hit diara of the Gandak.
+              </p>
+            </div>
+            <div className="rise mt-10 flex flex-wrap items-center gap-x-6 gap-y-4" style={{ animationDelay: "380ms" }}>
+              <Link href="/donate" className="btn btn-primary">Donate now</Link>
+              <Link href="/volunteer" className="btn btn-ghost">Become a volunteer</Link>
+              <TextLink href="/about">Learn more</TextLink>
+            </div>
           </div>
 
-          {/* Collage */}
-          <div className="relative mx-auto w-full max-w-[520px]">
+          <div className="lg:col-span-5">
             <Photo
               src={photo.assembly}
               alt="Morning assembly at a Shatakshi learning centre"
               priority
-              className="aspect-[4/4.4] w-[82%] shadow-[0_40px_80px_-40px_rgb(14_53_48/0.55)]"
-              sizes="(min-width: 1024px) 420px, 82vw"
+              className="w-full"
+              frameClass="aspect-[4/4.6]"
+              sizes="(min-width: 1024px) 460px, 100vw"
+              caption="Morning assembly at the Khap Maksudpur centre, Mission Arms to Pen."
             />
-            <Photo
-              src={photo.ambulance}
-              alt="The free Shatakshi ambulance"
-              className="absolute -bottom-8 right-0 aspect-[3/4] w-[38%] border-[6px] border-sand-50 shadow-xl"
-              sizes="200px"
-            />
-            <div className="absolute -left-3 bottom-16 rounded-2xl bg-white p-4 pr-6 shadow-xl sm:-left-8">
-              <p className="display text-4xl text-river-900">800+</p>
-              <p className="text-sm font-semibold text-ink-soft">children in free school</p>
-            </div>
-            <div className="absolute right-[10%] top-6 hidden rounded-full bg-river-900 px-4 py-2 text-sm font-semibold text-sand-50 shadow-lg sm:block">
-              <span className="mr-2 inline-block h-2 w-2 animate-pulse rounded-full bg-marigold-400" />
-              Ambulance on call 24×7
-            </div>
           </div>
+        </div>
+
+        {/* Standfirst figures */}
+        <div className="container-page">
+          <Reveal className="grid border-y border-ink py-5 text-center sm:grid-cols-3">
+            {[
+              ["800", "children in free school"],
+              ["47", "elders fed every day"],
+              ["1,200+", "unclaimed given last rites"],
+            ].map(([n, l], i) => (
+              <p
+                key={l}
+                className={`py-3 font-display text-xl italic text-ink-soft ${i ? "border-t border-line sm:border-l sm:border-t-0" : ""}`}
+              >
+                <span className="figures mr-2 not-italic text-3xl text-ink">{n}</span>
+                {l}
+              </p>
+            ))}
+          </Reveal>
         </div>
       </section>
 
-      <PressStrip />
+      {/* ---------------- The name ---------------- */}
+      <section className="py-24 sm:py-32">
+        <div className="container-page grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <SectionHeading eyebrow="Our name" title={<>Why we are called <em>Shatakshi</em></>} />
+            <Reveal delay={120}>
+              <p className="font-hindi mt-8 text-6xl text-marigold-600">शताक्षी</p>
+              <p className="mt-2 font-display text-lg italic text-ink-mute">“the one with a hundred eyes”</p>
+            </Reveal>
+          </div>
+          <Reveal delay={150} className="prose-classic text-[1.12rem] leading-[1.8] text-ink-soft lg:col-span-6 lg:col-start-7">
+            <p className="dropcap">
+              In Indian tradition, Shatakshi is the goddess who looked upon a world parched by
+              drought and famine with a hundred eyes, and wept. Her tears became rivers, and the
+              rivers fed the land.
+            </p>
+            <p>
+              We took her name because our work begins with <em className="text-ink">seeing</em>: the
+              girl who has quietly left school, the elder no one visits, the body on the riverbank
+              that no one has come for. Our mantra is three words: शिक्षा, सेवा, जागरूकता.
+              Education, service, awareness.
+            </p>
+          </Reveal>
+        </div>
 
-      {/* ---------------- The name & three pillars ---------------- */}
-      <section className="py-20 sm:py-28">
-        <div className="container-page grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHeading
-            eyebrow="Why ‘Shatakshi’"
-            title={<>The goddess who wept <span className="text-marigold-600">rivers</span> for a hungry land.</>}
-            intro={
-              <>
-                In Indian tradition, Shatakshi — <span className="font-hindi">शताक्षी</span>, “the
-                hundred-eyed” — saw the world suffering through drought and famine, and wept.
-                Her tears became rivers that fed the land. We took her name for a simple reason:
-                our work is about <strong className="text-river-900">seeing</strong> those everyone
-                else overlooks.
-              </>
-            }
-          />
-          <div className="grid gap-4">
+        <div className="container-page mt-20">
+          <div className="grid border-t border-ink md:grid-cols-3">
             {pillars.map((pl, i) => {
               const t = tone[pl.tone];
               return (
                 <Reveal
                   key={pl.key}
-                  delay={i * 90}
-                  className="grid gap-4 rounded-[var(--radius-card)] border border-line bg-white p-6 sm:grid-cols-[8rem_1fr] sm:p-7"
+                  delay={i * 120}
+                  className={`py-10 md:px-8 ${i === 0 ? "md:pl-0" : "border-t border-line md:border-l md:border-t-0"} ${i === 2 ? "md:pr-0" : ""}`}
                 >
-                  <div>
-                    <p className={`font-hindi text-3xl ${t.text}`}>{pl.hindi}</p>
-                    <p className="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-ink-mute">{pl.name}</p>
-                  </div>
-                  <div>
-                    <p className="text-lg leading-snug text-river-950">{pl.line}</p>
-                    <ul className="mt-4 flex flex-wrap gap-2">
-                      {pl.programs.length > 0 ? (
-                        pl.programs.map((slug) => {
-                          const p = programBySlug(slug)!;
-                          return (
-                            <li key={slug}>
-                              <Link
-                                href={`/programs/${slug}`}
-                                className={`inline-flex rounded-full px-3 py-1 text-xs font-bold transition-opacity hover:opacity-80 ${t.chip}`}
-                              >
-                                {p.name.replace("Maa Shatakshi ", "")}
-                              </Link>
-                            </li>
-                          );
-                        })
-                      ) : (
-                        <li className={`inline-flex rounded-full px-3 py-1 text-xs font-bold ${t.chip}`}>
-                          {helpline.name}
+                  <p className={`font-hindi text-4xl ${t.text}`}>{pl.hindi}</p>
+                  <p className="mt-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-ink-mute">{pl.name}</p>
+                  <p className="mt-5 font-display text-xl leading-snug text-ink">{pl.line}</p>
+                  <ul className="mt-6 space-y-2 text-[0.95rem]">
+                    {pl.programs.length > 0 ? (
+                      pl.programs.map((slug) => (
+                        <li key={slug}>
+                          <Link href={`/programs/${slug}`} className="group inline-flex gap-2 text-ink-soft hover:text-ink">
+                            <span className="text-marigold-500">—</span>
+                            <span className="link-draw">{programBySlug(slug)!.name.replace("Maa Shatakshi ", "")}</span>
+                          </Link>
                         </li>
-                      )}
-                    </ul>
-                  </div>
+                      ))
+                    ) : (
+                      <li className="inline-flex gap-2 text-ink-soft">
+                        <span className="text-marigold-500">—</span> {helpline.name}
+                      </li>
+                    )}
+                  </ul>
                 </Reveal>
               );
             })}
@@ -143,16 +144,16 @@ export default function Home() {
 
       <ImpactBand />
 
-      {/* ---------------- Programs ---------------- */}
-      <section className="py-20 sm:py-28">
+      {/* ---------------- Programmes ---------------- */}
+      <section className="py-24 sm:py-32">
         <div className="container-page">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
             <SectionHeading
               eyebrow="What we do"
-              title="Six programs. One idea: dignity."
-              intro="From a child's first alphabet to a stranger's last rites, each program answers a need we saw on the ground."
+              title="Our Programmes"
+              intro="Six programmes, each begun because the team saw a need on the ground and could not look away."
             />
-            <TextLink href="/programs">All programs</TextLink>
+            <Reveal><TextLink href="/programs">All programmes</TextLink></Reveal>
           </div>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {programs.map((p, i) => (
@@ -163,79 +164,79 @@ export default function Home() {
       </section>
 
       {/* ---------------- Where we work ---------------- */}
-      <section className="bg-sand-100 py-20 sm:py-28">
-        <div className="container-page grid items-center gap-14 lg:grid-cols-2">
-          <div>
+      <section className="bg-sand-100 py-24 sm:py-32">
+        <div className="container-page grid gap-16 lg:grid-cols-12">
+          <div className="lg:col-span-5">
             <SectionHeading
               eyebrow="Where we work"
-              title="The diara: land the river gives, and takes back."
-              intro="The Gandak floods six of Gopalganj's fourteen blocks every year. When the water comes, it doesn't just take homes and crops — it takes a childhood."
+              title={<>The diara, land the river <em>gives and takes back</em></>}
+              intro="The Gandak floods six of Gopalganj's fourteen blocks every year. When the water comes, it takes more than homes and crops. It takes a childhood."
             />
-            <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8">
+            <dl className="mt-12 grid grid-cols-2 gap-x-8">
               {diaraFacts.map((f, i) => (
-                <Reveal key={f.label} delay={i * 70}>
-                  <dt className="display text-4xl text-sindoor-600">{f.value}</dt>
-                  <dd className="mt-2 text-sm leading-snug text-ink-soft">{f.label}</dd>
+                <Reveal key={f.label} delay={i * 90} className="border-t border-ink/70 py-5">
+                  <dt className="figures text-[2.3rem] leading-none text-sindoor-600">{f.value}</dt>
+                  <dd className="mt-3 text-sm leading-snug text-ink-soft">{f.label}</dd>
                 </Reveal>
               ))}
             </dl>
           </div>
-          <Reveal className="grid gap-4">
+          <div className="grid content-start gap-6 lg:col-span-6 lg:col-start-7">
             <Photo
               src={photo.khapVillage}
               alt="Khap village in the diara of the Gandak"
-              className="aspect-[16/8]"
+              frameClass="aspect-[16/8]"
               sizes="(min-width: 1024px) 560px, 100vw"
+              caption="Khap village, on the Gandak's floodplain."
             />
-            <div className="grid grid-cols-2 gap-4">
-              <Photo src={photo.floodHomes} alt="Homes after the flood" className="aspect-[4/3]" sizes="280px" />
-              <Photo src={photo.floodSchool} alt="A school building in flood silt" className="aspect-[4/3]" sizes="280px" />
+            <div className="grid grid-cols-2 gap-6">
+              <Photo src={photo.floodHomes} alt="Homes after the flood" frameClass="aspect-[4/3]" sizes="280px" caption="After the water recedes." />
+              <Photo src={photo.floodSchool} alt="A school building in flood silt" frameClass="aspect-[4/3]" sizes="280px" caption="A school, buried in silt." />
             </div>
-            <p className="text-sm text-ink-mute">Khap village and the flood-hit diara, photographed by Team Shatakshi.</p>
-          </Reveal>
+          </div>
         </div>
       </section>
 
       {/* ---------------- Founder ---------------- */}
-      <section className="py-20 sm:py-28">
-        <div className="container-page">
-          <Reveal className="grid overflow-hidden rounded-[2rem] bg-river-950 text-sand-50 lg:grid-cols-[0.55fr_1.45fr]">
+      <section className="py-24 sm:py-32">
+        <div className="container-page grid items-center gap-12 lg:grid-cols-12">
+          <div className="mx-auto w-full max-w-xs lg:col-span-4 lg:max-w-none">
             <Photo
               src={photo.founder}
               alt="Naveen Shrivastava, founder"
-              rounded="rounded-none"
-              className="aspect-[4/4.2] lg:aspect-auto"
-              sizes="(min-width: 1024px) 420px, 100vw"
+              frameClass="aspect-[4/5]"
+              sizes="(min-width: 1024px) 340px, 320px"
+              caption="Naveen Shrivastava, founder."
             />
-            <div className="flex flex-col justify-center p-8 sm:p-14">
-              <p className="eyebrow !text-marigold-300">How it began</p>
-              <blockquote className="display mt-6 text-3xl leading-tight sm:text-[2.6rem]">
+          </div>
+          <div className="lg:col-span-7 lg:col-start-6">
+            <Reveal>
+              <p className="eyebrow">How it began</p>
+              <blockquote className="display mt-6 text-[2.4rem] italic leading-[1.1] text-ink sm:text-[3.4rem]">
                 “If this were your brother, what would you do?”
               </blockquote>
-              <p className="mt-6 max-w-xl leading-relaxed text-river-200">
-                Naveen Shrivastava was preparing for the IAS in Prayagraj when his brother
-                drowned in the Ganga. Searching the river, he found body after unclaimed body.
-                A boatman's question turned his life back home — to Manikpur, Gopalganj — and
-                in 2011, with his wife Shilpi Saxena, Shatakshi began.
+            </Reveal>
+            <Reveal delay={150}>
+              <p className="mt-8 max-w-xl text-[1.08rem] leading-[1.8] text-ink-soft">
+                Naveen Shrivastava was preparing for the civil services in Prayagraj when his
+                brother drowned in the Ganga. Searching the river, he found body after unclaimed
+                body. A boatman&apos;s question turned him back home to Manikpur, and in 2011,
+                with his wife Shilpi Saxena, the Sansthan began.
               </p>
-              <div className="mt-8">
-                <Link href="/about" className="btn btn-light">
-                  Our story <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          </Reveal>
+              <div className="mt-8"><TextLink href="/about">Read our story</TextLink></div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
       {/* ---------------- Stories ---------------- */}
-      <section className="pb-20 sm:pb-28">
+      <section className="border-t border-line py-24 sm:py-32">
         <div className="container-page">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading eyebrow="Latest from the field" title="Stories of change" />
-            <TextLink href="/impact">All impact stories</TextLink>
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+            <SectionHeading eyebrow="From the field" title="Stories of change" />
+            <Reveal><TextLink href="/impact">All stories</TextLink></Reveal>
           </div>
-          <div className="mt-12 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {stories.slice(0, 3).map((s, i) => (
               <StoryCard key={s.slug} s={s} index={i} />
             ))}
@@ -243,33 +244,29 @@ export default function Home() {
         </div>
       </section>
 
+      <PressStrip />
+
       {/* ---------------- Voices ---------------- */}
-      <section className="bg-sand-100 py-20 sm:py-28">
+      <section className="py-24 sm:py-32">
         <div className="container-page">
           <SectionHeading eyebrow="In their words" title="Voices from the diara" align="center" />
-          <div className="mt-12">
-            <Testimonials />
-          </div>
+          <Ornament className="mx-auto mt-10 max-w-xs" />
+          <div className="mt-10"><Testimonials /></div>
         </div>
       </section>
 
-      <DonationBand />
+      <div className="bg-sand-100"><DonationBand /></div>
 
-      {/* ---------------- Helpline strip ---------------- */}
-      <section className="pb-20">
-        <div className="container-page">
-          <div className="flex flex-col items-start justify-between gap-6 rounded-[var(--radius-card)] border border-line p-7 sm:flex-row sm:items-center">
-            <div>
-              <p className="font-hindi text-lg text-sindoor-600">{helpline.hindiName}</p>
-              <p className="display mt-1 text-2xl text-river-950">
-                Need an ambulance, or help with a government scheme?
-              </p>
-            </div>
-            <a href={`tel:+${org.phoneRaw}`} className="btn btn-dark">
-              <Phone className="h-4 w-4" /> {org.phone}
-            </a>
-          </div>
-        </div>
+      {/* ---------------- Helpline ---------------- */}
+      <section className="py-14">
+        <Reveal className="container-page text-center">
+          <p className="font-display text-2xl italic text-ink-soft">
+            Need an ambulance, or help with a government scheme? Call the {helpline.name}, day or night:
+          </p>
+          <a href={`tel:+${org.phoneRaw}`} className="figures mt-3 inline-block text-4xl text-ink hover:text-sindoor-600">
+            {org.phone}
+          </a>
+        </Reveal>
       </section>
     </>
   );

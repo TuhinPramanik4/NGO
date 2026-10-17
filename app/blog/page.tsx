@@ -12,14 +12,14 @@ export default function BlogPage() {
   const [lead, ...rest] = blogPosts;
   return (
     <>
-      <PageHero eyebrow="News & blog" hindi="समाचार" title="Notes from the field." />
+      <PageHero eyebrow="News & blog" hindi="समाचार" title="News & Updates" />
 
       <section className="py-16 sm:py-20">
         <div className="container-page">
           <ul className="flex flex-wrap gap-2" aria-label="Categories">
             {blogCategories.map((c, i) => (
               <li key={c}>
-                <span className={`inline-flex rounded-full px-4 py-2 text-sm font-bold ${i === 0 ? "bg-river-900 text-sand-50" : "bg-white text-ink-soft ring-1 ring-line"}`}>
+                <span className={`inline-flex  px-4 py-2 text-sm font-bold ${i === 0 ? "bg-river-900 text-sand-50" : "bg-white text-ink-soft ring-1 ring-line"}`}>
                   {c}
                 </span>
               </li>

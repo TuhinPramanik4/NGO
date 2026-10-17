@@ -8,7 +8,7 @@ import { photo } from "@/lib/images";
 export const metadata: Metadata = {
   title: "About us",
   description:
-    "The story of Shatakshi Seva Sansthan — founded in 2011 in Manikpur, Gopalganj by Naveen Shrivastava and Shilpi Saxena.",
+"The story of Shatakshi Seva Sansthan — founded in 2011 in Manikpur, Gopalganj by Naveen Shrivastava and Shilpi Saxena.",
 };
 
 const timeline = [
@@ -26,7 +26,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About us"
         hindi="सेवा"
-        title={<>Fifteen years of <em className="mark not-italic">seeing</em> the unseen.</>}
+        title={<>Fifteen years of <em>service</em> in the diara</>}
         intro={`${org.registeredName} — known as ${org.name} — was founded in ${org.established} in Gopalganj, Bihar. It is registered under the Indian Trusts Act, 1882, and certified under Sections 12-A and 80-G of the Income Tax Act.`}
       />
 
@@ -35,7 +35,7 @@ export default function AboutPage() {
         <div className="container-page grid items-start gap-14 lg:grid-cols-[0.85fr_1.15fr]">
           <Reveal className="relative lg:sticky lg:top-32">
             <Photo src={photo.founders} alt="The Shatakshi founders at Maa Shatakshi Rasoi" className="aspect-[4/3]" sizes="(min-width: 1024px) 460px, 100vw" />
-            <div className="absolute -bottom-6 right-6 w-36 overflow-hidden rounded-2xl border-[5px] border-sand-50 shadow-xl">
+            <div className="absolute -bottom-6 right-6 w-36 overflow-hidden  border-[5px] border-sand-50 shadow-xl">
               <Photo src={photo.founder} alt="Naveen Shrivastava" rounded="rounded-none" className="aspect-[4/5]" sizes="150px" />
             </div>
           </Reveal>
@@ -100,7 +100,7 @@ export default function AboutPage() {
           <ol className="relative border-l-2 border-line pl-8">
             {timeline.map((t, i) => (
               <Reveal as="li" key={t.year} delay={i * 60} className="relative pb-10 last:pb-0">
-                <span className="absolute -left-[41px] top-1 h-4 w-4 rounded-full border-[3px] border-sand-50 bg-marigold-500 ring-2 ring-marigold-200" />
+                <span className="absolute -left-[41px] top-1 h-4 w-4  border-[3px] border-sand-50 bg-marigold-500 ring-2 ring-marigold-200" />
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-marigold-700">{t.year}</p>
                 <p className="mt-2 text-lg leading-relaxed text-river-950">{t.text}</p>
               </Reveal>

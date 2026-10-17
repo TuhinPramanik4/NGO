@@ -20,7 +20,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         hindi="संपर्क"
-        title="Talk to us."
+        title="Contact Us"
         intro="For partnerships, CSR, media or simply to visit a centre — we'd love to hear from you."
       />
       <section className="py-16 sm:py-24">
@@ -44,7 +44,7 @@ export default function ContactPage() {
                 rel="noreferrer"
                 className="flex gap-4 rounded-[var(--radius-card)] bg-white p-6 ring-1 ring-line transition-shadow hover:shadow-md"
               >
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-river-50 text-river-700">
+                <span className="grid h-11 w-11 shrink-0 place-items-center  bg-river-50 text-river-700">
                   <Icon className="h-5 w-5" />
                 </span>
                 <span className="min-w-0">
@@ -64,7 +64,7 @@ export default function ContactPage() {
             <ul className="flex flex-wrap gap-2 pt-2">
               {socials.map((s) => (
                 <li key={s.label}>
-                  <a href={s.href} target="_blank" rel="noreferrer" className="inline-flex rounded-full px-4 py-2 text-sm font-semibold ring-1 ring-line hover:ring-river-900">
+                  <a href={s.href} target="_blank" rel="noreferrer" className="inline-flex  px-4 py-2 text-sm font-semibold ring-1 ring-line hover:ring-river-900">
                     {s.label}
                   </a>
                 </li>

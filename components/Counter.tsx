@@ -25,7 +25,7 @@ export default function Counter({
         started.current = true;
         const start = performance.now();
         const tick = (now: number) => {
-          const t = Math.min((now - start) / duration, 1);
+          const t = Math.min(Math.max((now - start) / duration, 0), 1);
           // easeOutExpo
           const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
           setDisplay(Math.round(eased * value));

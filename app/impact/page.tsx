@@ -15,8 +15,8 @@ export default function ImpactPage() {
       <PageHero
         eyebrow="Impact"
         hindi="बदलाव"
-        title={<>Change you can <em className="mark not-italic">name</em>.</>}
-        intro="Not abstractions — a girl who cleared the Sainik School exam, 47 elders who eat every day, 183 patients who reached a hospital in time."
+        title="Impact Stories"
+        intro="A girl who cleared the Sainik School examination, forty-seven elders who eat every day, and patients who reached hospital in time."
       />
       <section className="py-20 sm:py-24">
         <div className="container-page grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">

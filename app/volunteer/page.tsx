@@ -21,7 +21,7 @@ export default function VolunteerPage() {
       <PageHero
         eyebrow="Volunteer"
         hindi="साथ"
-        title={<>Lend your hands. <em className="mark not-italic">Lend your eyes.</em></>}
+        title={<>Volunteer <em>with us</em></>}
         intro="Team Shatakshi runs on volunteers — teachers, cooks, drivers, photographers and people who simply show up during the flood."
       />
       <section className="py-16 sm:py-24">
@@ -32,7 +32,7 @@ export default function VolunteerPage() {
             <ol className="mt-6 space-y-6">
               {steps.map(([t, d], i) => (
                 <li key={t} className="flex gap-4">
-                  <span className="display grid h-10 w-10 shrink-0 place-items-center rounded-full bg-marigold-100 text-lg text-marigold-700">
+                  <span className="display grid h-10 w-10 shrink-0 place-items-center  bg-marigold-100 text-lg text-marigold-700">
                     {i + 1}
                   </span>
                   <span>

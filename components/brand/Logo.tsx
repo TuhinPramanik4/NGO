@@ -55,17 +55,14 @@ export function Wordmark({
   className?: string;
 }) {
   const main = tone === "dark" ? "text-river-950" : "text-sand-50";
-  const sub = tone === "dark" ? "text-river-600" : "text-river-200";
+  const sub = tone === "dark" ? "text-sindoor-600" : "text-marigold-300";
   return (
     <span className={`flex flex-col leading-none ${className}`}>
-      <span
-        className={`display text-[1.45rem] font-semibold ${main}`}
-        style={{ letterSpacing: "-0.03em" }}
-      >
+      <span className={`display text-[1.7rem] font-semibold ${main}`}>
         Shatakshi
       </span>
       <span
-        className={`mt-1 text-[0.6rem] font-bold uppercase tracking-[0.32em] ${sub}`}
+        className={`mt-0.5 text-[0.56rem] font-semibold uppercase tracking-[0.34em] ${sub}`}
       >
         Seva Sansthan
       </span>
@@ -81,7 +78,7 @@ export default function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
       className="group flex items-center gap-2.5"
     >
       <LogoMark
-        className="h-10 w-10 shrink-0 transition-transform duration-500 group-hover:rotate-[30deg]"
+        className="h-10 w-10 shrink-0 transition-transform duration-500 group-hover:rotate-[20deg]"
         ring={tone === "dark" ? "var(--color-river-800)" : "var(--color-sand-50)"}
       />
       <Wordmark tone={tone} />

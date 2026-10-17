@@ -13,29 +13,29 @@ export const metadata: Metadata = {
 const palette = [
   {
     name: "River",
-    role: "Primary · trust, depth, the Gandak",
+    role: "Primary ink · the Gandak",
     swatches: [
-      ["950", "#08221F"], ["900", "#0E3530"], ["800", "#12443D"], ["700", "#17554C"],
-      ["500", "#2A7D6F"], ["300", "#7DBAAD"], ["100", "#D8EBE6"], ["50", "#EEF6F4"],
+      ["950", "#0C1D18"], ["900", "#142C25"], ["800", "#1B3930"], ["700", "#22463B"],
+      ["500", "#3B6A5B"], ["300", "#86AA9B"], ["100", "#D9E5DF"], ["50", "#EEF3F0"],
     ],
   },
   {
     name: "Marigold",
-    role: "Action · seva, the diya, the saffron ribbon",
+    role: "Second ink · the one action that matters",
     swatches: [
-      ["800", "#7F4412"], ["700", "#A0550F"], ["600", "#C96E10"], ["500", "#E8891C"],
-      ["400", "#F39F31"], ["300", "#F9B75A"], ["100", "#FFEACB"], ["50", "#FFF7EA"],
+      ["800", "#6A4418"], ["700", "#87561B"], ["600", "#A86D1F"], ["500", "#C4862B"],
+      ["400", "#D19A40"], ["300", "#DDB062"], ["100", "#F5E5C4"], ["50", "#FBF4E6"],
     ],
   },
   {
     name: "Sindoor",
-    role: "Accent · urgency, Voice of Silence — use sparingly",
-    swatches: [["700", "#872C1D"], ["600", "#A93723"], ["500", "#C8452E"], ["100", "#F9DCD5"], ["50", "#FDF1EE"]],
+    role: "Emphasis · italics, labels, drop caps",
+    swatches: [["700", "#6B2016"], ["600", "#86291C"], ["500", "#9C3324"], ["100", "#EED3CB"], ["50", "#F8ECE8"]],
   },
   {
-    name: "Sand",
-    role: "Canvas · alluvial silt",
-    swatches: [["400", "#C2AD8A"], ["300", "#DCCDB2"], ["200", "#ECE2CF"], ["100", "#F6F0E4"], ["50", "#FCFAF5"]],
+    name: "Paper",
+    role: "Canvas · ivory stock",
+    swatches: [["400", "#B9A581"], ["300", "#D4C4A6"], ["200", "#E5DAC5"], ["100", "#F0E9DB"], ["50", "#F8F4EC"]],
   },
 ];
 
@@ -64,7 +64,7 @@ export default function BrandPage() {
       <PageHero
         eyebrow="Brand guidelines · v1"
         hindi="शताक्षी"
-        title="One idea: no one unseen."
+        title={<>Paper, ink, and <em>a hundred eyes</em></>}
         intro="Shatakshi (शताक्षी) is the hundred-eyed goddess who wept for a famished world until her tears became rivers. The identity is built on that image: an eye that notices, water that nourishes, and a flame that keeps vigil."
       />
 
@@ -109,7 +109,7 @@ export default function BrandPage() {
           </ul>
 
           <div className="mt-10 flex items-center gap-6 rounded-[var(--radius-card)] bg-sand-100 p-6">
-            <Photo src={photo.originalLogo} alt="The original Shatakshi logo" className="h-24 w-24 shrink-0" rounded="rounded-xl" sizes="96px" />
+            <Photo src={photo.originalLogo} alt="The original Shatakshi logo" className="h-24 w-24 shrink-0" rounded="" sizes="96px" />
             <p className="text-sm leading-relaxed text-ink-soft">
               <strong className="text-river-950">Evolved, not replaced.</strong> The original seal —
               three segments, the saffron ribbon and <span className="font-hindi">सेवा परमो धर्मः</span> —
@@ -124,8 +124,8 @@ export default function BrandPage() {
         <div className="container-page">
           <SectionHeading
             eyebrow="02 · Colour"
-            title="River and marigold on silt."
-            intro="Roughly 60% sand, 30% river, 10% marigold. Marigold is for the action that matters most on the page — usually Donate."
+            title={<>Paper, ink, and <em>one warm colour</em></>}
+            intro="Printed like a two-ink job: mostly paper and river-green ink, with marigold kept for the single most important action on a page, usually Donate."
           />
           <div className="mt-12 space-y-8">
             {palette.map((p) => (
@@ -149,8 +149,7 @@ export default function BrandPage() {
             ))}
           </div>
           <p className="mt-8 text-sm text-ink-soft">
-            Text pairs that pass WCAG AA: river-950 on sand-50 · sand-50 on river-900 · river-950 on marigold-500 ·
-            sand-50 on sindoor-600. Never set white text on marigold.
+            Text pairs that pass WCAG AA: ink on paper · paper on river-900 · ink on marigold-500 · paper on sindoor-600.
           </p>
         </div>
       </section>
@@ -158,20 +157,20 @@ export default function BrandPage() {
       {/* Type */}
       <section className="py-20 sm:py-24">
         <div className="container-page">
-          <SectionHeading eyebrow="03 · Typography" title="Warm serif, honest sans, and Devanagari with soul." />
+          <SectionHeading eyebrow="03 · Typography" title={<>A classic serif, a newspaper sans, and <em>Devanagari</em></>} />
           <div className="mt-12 grid gap-4 lg:grid-cols-3">
             <div className="rounded-[var(--radius-card)] bg-white p-8 ring-1 ring-line">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-ink-mute">Display · Fraunces</p>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-ink-mute">Display · Cormorant Garamond</p>
               <p className="display mt-6 text-6xl text-river-950">Aa</p>
-              <p className="display mt-4 text-2xl text-river-950">A hundred eyes for the ones no one sees.</p>
-              <p className="mt-4 text-sm text-ink-soft">Headlines, numbers and quotes. Soft optical axis, tight tracking.</p>
+              <p className="display mt-4 text-3xl text-river-950">Serving those <em>the world forgets.</em></p>
+              <p className="mt-4 text-sm text-ink-soft">Headlines, figures, quotes and captions. Italic carries emphasis, in sindoor.</p>
             </div>
             <div className="rounded-[var(--radius-card)] bg-white p-8 ring-1 ring-line">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-ink-mute">Text · Manrope</p>
-              <p className="mt-6 text-6xl font-semibold text-river-950">Aa</p>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-ink-mute">Text · Libre Franklin</p>
+              <p className="mt-6 text-6xl text-river-950">Aa</p>
               <p className="mt-4 text-lg text-ink-soft">
-                Body copy, forms and navigation. Clear on cheap Android screens, which is where
-                most of our village audience reads.
+                A newspaper sans for body copy, forms and small-caps labels. Plain and legible on
+                inexpensive phone screens.
               </p>
             </div>
             <div className="rounded-[var(--radius-card)] bg-white p-8 ring-1 ring-line">
@@ -187,7 +186,7 @@ export default function BrandPage() {
       {/* Voice */}
       <section className="bg-river-950 py-20 text-sand-50 sm:py-24">
         <div className="container-page">
-          <SectionHeading tone="light" eyebrow="04 · Voice" title="Speak like a neighbour, not a brochure." />
+          <SectionHeading tone="light" eyebrow="04 · Voice" title={<>Speak like a neighbour, <em>not a brochure</em></>} />
           <div className="mt-12 grid gap-4 md:grid-cols-2">
             {voice.map((v) => (
               <div key={v.do} className="grid gap-3 rounded-[var(--radius-card)] border border-white/10 p-6">
@@ -204,8 +203,8 @@ export default function BrandPage() {
         <div className="container-page grid items-center gap-12 lg:grid-cols-2">
           <SectionHeading
             eyebrow="05 · Photography"
-            title="Real, unposed, at eye level."
-            intro="Use Team Shatakshi's own photos. Shoot people at their eye level, with their consent, doing something — learning, cooking, serving. Never show the deceased, and never use a beneficiary's suffering as a hook. Every photo gets the same warm grade and fine grain so phone shots sit together."
+            title="Real, unposed, at eye level"
+            intro="Use Team Shatakshi's own photos. Shoot people at their eye level, with their consent, doing something — learning, cooking, serving. Never show the deceased, and never use a beneficiary's suffering as a hook. Every photo gets the same warm, slightly matte grade and an italic caption, so phone shots sit together like plates in a book."
           />
           <div className="grid grid-cols-2 gap-4">
             <Photo src={photo.classroom} alt="Classroom example" className="aspect-[4/3]" sizes="280px" />
@@ -229,7 +228,7 @@ export default function BrandPage() {
           </div>
           <div className="mt-8 max-w-md">
             <label className="field-label" htmlFor="demo">Form field</label>
-            <input id="demo" className="field" placeholder="Rounded, 1.5px border, river focus ring" />
+            <input id="demo" className="field" placeholder="A ruled line, like a printed form" />
           </div>
         </div>
       </section>

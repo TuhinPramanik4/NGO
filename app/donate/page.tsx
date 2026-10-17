@@ -8,7 +8,7 @@ import { photo } from "@/lib/images";
 export const metadata: Metadata = {
   title: "Donate",
   description:
-    "Donate to Shatakshi Seva Sansthan. 80-G tax benefit, instant receipt, UPI and cards via Razorpay.",
+"Donate to Shatakshi Seva Sansthan. 80-G tax benefit, instant receipt, UPI and cards via Razorpay.",
 };
 
 const trust = [
@@ -33,7 +33,7 @@ export default async function DonatePage({
         <div className="container-page relative grid gap-12 pb-20 pt-14 lg:grid-cols-[0.9fr_1.1fr] lg:pb-24 lg:pt-20">
           <div>
             <p className="eyebrow !text-marigold-300">Donate</p>
-            <h1 className="display mt-5 text-5xl sm:text-6xl">Be the hundredth eye.</h1>
+            <h1 className="display mt-5 text-5xl sm:text-6xl">Make a <em className="!text-marigold-300">donation</em></h1>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-river-200">
               ₹500 carries a week of hot meals to an elder no one else visits. ₹5,000 keeps a
               first-generation learner in school for a term.
@@ -57,7 +57,7 @@ export default async function DonatePage({
         <ul className="container-page grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {trust.map(({ icon: Icon, title, text }) => (
             <li key={title} className="flex gap-4">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-river-50 text-river-700">
+              <span className="grid h-11 w-11 shrink-0 place-items-center  bg-river-50 text-river-700">
                 <Icon className="h-5 w-5" />
               </span>
               <span>

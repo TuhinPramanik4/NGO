@@ -44,7 +44,7 @@ export default function DonateForm({
         </p>
 
         {/* Receipt preview */}
-        <div className="mt-6 rounded-2xl border border-dashed border-sand-400 bg-sand-50 p-5">
+        <div className="mt-6  border border-dashed border-sand-400 bg-sand-50 p-5">
           <div className="flex items-center justify-between border-b border-line pb-4">
             <div className="flex items-center gap-2">
               <LogoMark className="h-8 w-8" ring="var(--color-river-800)" />
@@ -94,7 +94,7 @@ export default function DonateForm({
         <legend className="flex w-full items-center justify-between">
           <span className="display text-xl text-river-950">1 · Your gift</span>
         </legend>
-        <div className="mt-4 grid grid-cols-2 gap-1 rounded-full bg-sand-100 p-1" role="radiogroup" aria-label="Frequency">
+        <div className="mt-4 grid grid-cols-2 gap-1  bg-sand-100 p-1" role="radiogroup" aria-label="Frequency">
           {(["once", "monthly"] as const).map((f) => (
             <button
               key={f}
@@ -102,7 +102,7 @@ export default function DonateForm({
               role="radio"
               aria-checked={frequency === f}
               onClick={() => setFrequency(f)}
-              className={`rounded-full py-2.5 text-sm font-bold transition-colors ${
+              className={` py-2.5 text-sm font-bold transition-colors ${
                 frequency === f ? "bg-white text-river-900 shadow-sm" : "text-ink-soft hover:text-river-900"
               }`}
             >
@@ -124,7 +124,7 @@ export default function DonateForm({
                   setAmount(t.amount);
                   setCustom("");
                 }}
-                className={`display rounded-xl py-3.5 text-xl transition-all ${
+                className={`display  py-3.5 text-xl transition-all ${
                   on
                     ? "bg-river-900 text-sand-50"
                     : "bg-white text-river-950 ring-1 ring-line hover:ring-river-400"

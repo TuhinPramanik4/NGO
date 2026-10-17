@@ -64,7 +64,7 @@ export default function VolunteerForm() {
           {interests.map((i) => (
             <label key={i} className="cursor-pointer">
               <input type="checkbox" name="interest" value={i} className="peer sr-only" />
-              <span className="inline-flex rounded-full px-4 py-2 text-sm font-semibold ring-1 ring-line transition-colors peer-checked:bg-river-900 peer-checked:text-sand-50 peer-checked:ring-river-900 peer-focus-visible:outline-2 peer-focus-visible:outline-marigold-500">
+              <span className="inline-flex  px-4 py-2 text-sm font-semibold ring-1 ring-line transition-colors peer-checked:bg-river-900 peer-checked:text-sand-50 peer-checked:ring-river-900 peer-focus-visible:outline-2 peer-focus-visible:outline-marigold-500">
                 {i}
               </span>
             </label>
@@ -78,7 +78,7 @@ export default function VolunteerForm() {
           {availability.map((a) => (
             <label key={a} className="cursor-pointer">
               <input type="checkbox" name="availability" value={a} className="peer sr-only" />
-              <span className="inline-flex rounded-full px-4 py-2 text-sm font-semibold ring-1 ring-line transition-colors peer-checked:bg-marigold-500 peer-checked:text-river-950 peer-checked:ring-marigold-500 peer-focus-visible:outline-2 peer-focus-visible:outline-marigold-500">
+              <span className="inline-flex  px-4 py-2 text-sm font-semibold ring-1 ring-line transition-colors peer-checked:bg-marigold-500 peer-checked:text-river-950 peer-checked:ring-marigold-500 peer-focus-visible:outline-2 peer-focus-visible:outline-marigold-500">
                 {a}
               </span>
             </label>
