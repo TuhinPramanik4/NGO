@@ -3,7 +3,7 @@ import Reveal from "@/components/Reveal";
 import { PageHero, Photo, SectionHeading } from "@/components/ui";
 import { DonationBand, PressStrip } from "@/components/blocks";
 import { coreValues, org, team } from "@/lib/data";
-import { photo } from "@/lib/images";
+import { photo, big, stock } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "About us",
@@ -25,7 +25,8 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="About us"
-        hindi="सेवा"
+        image={big(stock.villageHouse)}
+        imageAlt="A woman walking past a village house in Bihar"
         title={<>Fifteen years of <em>service</em> in the diara</>}
         intro={`${org.registeredName} — known as ${org.name} — was founded in ${org.established} in Gopalganj, Bihar. It is registered under the Indian Trusts Act, 1882, and certified under Sections 12-A and 80-G of the Income Tax Act.`}
       />

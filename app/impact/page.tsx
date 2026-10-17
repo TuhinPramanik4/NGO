@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { big, stock } from "@/lib/images";
 import { PageHero } from "@/components/ui";
-import { DonationBand, ImpactBand, StoryCard, Testimonials } from "@/components/blocks";
-import { SectionHeading } from "@/components/ui";
+import { DonationBand, ImpactBand, StoryCard } from "@/components/blocks";
 import { stories } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -14,7 +14,8 @@ export default function ImpactPage() {
     <>
       <PageHero
         eyebrow="Impact"
-        hindi="बदलाव"
+        image={big(stock.flagDay)}
+        imageAlt="Schoolchildren waving flags"
         title="Impact Stories"
         intro="A girl who cleared the Sainik School examination, forty-seven elders who eat every day, and patients who reached hospital in time."
       />
@@ -26,12 +27,6 @@ export default function ImpactPage() {
         </div>
       </section>
       <ImpactBand />
-      <section className="py-20 sm:py-28">
-        <div className="container-page">
-          <SectionHeading eyebrow="Testimonials" title="In their words" align="center" />
-          <div className="mt-12"><Testimonials /></div>
-        </div>
-      </section>
       <DonationBand />
     </>
   );

@@ -109,14 +109,12 @@ body::before {
   }
 
   /* Small-caps label above headings */
+  /* Quiet kicker above a heading */
   .eyebrow {
     display: inline-block;
     font-family: var(--font-sans);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--color-sindoor-600);
+    font-size: 0.9rem;
+    color: var(--color-ink-mute);
   }
 
   .display {
@@ -128,7 +126,14 @@ body::before {
   .display em,
   .display i {
     font-style: italic;
-    color: var(--color-sindoor-600);
+  }
+
+  /* Readable text over photographs */
+  .scrim-bottom {
+    background: linear-gradient(to top, rgb(12 18 15 / 0.82) 0%, rgb(12 18 15 / 0.45) 38%, rgb(12 18 15 / 0) 70%);
+  }
+  .scrim-full {
+    background: rgb(12 18 15 / 0.55);
   }
 
   /* Old-style figures for long-form numbers */

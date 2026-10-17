@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import VolunteerForm from "@/components/forms/VolunteerForm";
 import { PageHero, Photo } from "@/components/ui";
-import { photo } from "@/lib/images";
+import { photo, big, stock } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Volunteer",
@@ -20,7 +20,8 @@ export default function VolunteerPage() {
     <>
       <PageHero
         eyebrow="Volunteer"
-        hindi="साथ"
+        image={big(stock.womenFields)}
+        imageAlt="Women working together in a field"
         title={<>Volunteer <em>with us</em></>}
         intro="Team Shatakshi runs on volunteers — teachers, cooks, drivers, photographers and people who simply show up during the flood."
       />

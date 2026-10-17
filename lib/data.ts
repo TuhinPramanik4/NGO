@@ -8,7 +8,7 @@ import {
   Megaphone,
   type LucideIcon,
 } from "lucide-react";
-import { px, pool, photo } from "./images";
+import { big, px, pool, photo, stock } from "./images";
 
 export const org = {
   name: "Shatakshi Seva Sansthan",
@@ -157,8 +157,8 @@ export const programs: Program[] = [
       { label: "People in reach", value: "40–50k" },
     ],
     donationCategory: "Education",
-    image: photo.classroom,
-    gallery: [photo.schoolWelcome, photo.assembly, photo.rows, photo.students],
+    image: big(stock.classroom, 1600, 1200),
+    gallery: [photo.classroom, photo.schoolWelcome, photo.assembly, photo.rows],
   },
   {
     slug: "voice-of-silence",
@@ -186,8 +186,8 @@ export const programs: Program[] = [
       { label: "Seen in", value: "Fewer child marriages" },
     ],
     donationCategory: "Women Empowerment",
-    image: photo.students,
-    gallery: [photo.classroom, photo.schoolWelcome],
+    image: big(stock.schoolgirls, 1600, 1200),
+    gallery: [photo.students, photo.classroom, photo.schoolWelcome],
   },
   {
     slug: "jal-pathshala",
@@ -215,8 +215,8 @@ export const programs: Program[] = [
       { label: "Focus", value: "Preparedness" },
     ],
     donationCategory: "Disaster Relief",
-    image: photo.floodHomes,
-    gallery: [photo.floodSchool, photo.khapVillage],
+    image: big(stock.floodGhat, 1600, 1200),
+    gallery: [photo.floodHomes, photo.floodSchool, photo.khapVillage],
   },
   {
     slug: "annapurna-kitchen",
@@ -244,8 +244,8 @@ export const programs: Program[] = [
       { label: "Cost to them", value: "Free" },
     ],
     donationCategory: "Food",
-    image: photo.annapurna,
-    gallery: [photo.ekMutthi, photo.founders],
+    image: big(stock.elderWoman, 1600, 1200),
+    gallery: [photo.annapurna, photo.ekMutthi, photo.founders],
   },
   {
     slug: "life-line-ambulance",
@@ -274,7 +274,7 @@ export const programs: Program[] = [
     ],
     donationCategory: "Ambulance",
     image: photo.ambulance,
-    gallery: [photo.team],
+    gallery: [photo.ambulance, photo.team],
   },
   {
     slug: "antim-vidai",
@@ -302,7 +302,7 @@ export const programs: Program[] = [
       { label: "Principle", value: "Dignity for all" },
     ],
     donationCategory: "General",
-    image: px(pool.diya[0], 1100, 850),
+    image: big(stock.diyas, 1600, 1200),
     gallery: [],
   },
 ];

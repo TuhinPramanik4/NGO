@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { big, stock } from "@/lib/images";
 import Reveal from "@/components/Reveal";
 import { Chip, PageHero, Photo } from "@/components/ui";
 import { blogCategories, blogPosts } from "@/lib/data";
@@ -12,7 +13,8 @@ export default function BlogPage() {
   const [lead, ...rest] = blogPosts;
   return (
     <>
-      <PageHero eyebrow="News & blog" hindi="समाचार" title="News & Updates" />
+      <PageHero eyebrow="News & blog" image={big(stock.floodTemple)}
+        imageAlt="A temple standing in flood water" title="News & Updates" />
 
       <section className="py-16 sm:py-20">
         <div className="container-page">

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import useInView from "@/components/useInView";
+import ParallaxImage from "@/components/ParallaxImage";
 
 /**
  * A field photograph. Unveils from the bottom when scrolled into view.
@@ -104,52 +105,60 @@ export function SectionHeading({
   );
 }
 
-/** Interior-page header: breadcrumb, title, standfirst, double rule. */
+/** Interior-page header. With `image`, the title sits over a full-width photograph. */
 export function PageHero({
   eyebrow,
   title,
   intro,
-  hindi,
+  image,
+  imageAlt = "",
   children,
 }: {
   eyebrow: string;
   title: React.ReactNode;
   intro?: React.ReactNode;
+  image?: string;
+  imageAlt?: string;
   hindi?: string;
   children?: React.ReactNode;
 }) {
+  if (image) {
+    return (
+      <section className="relative isolate flex min-h-[440px] items-end overflow-hidden bg-river-950 text-sand-50 sm:min-h-[560px] lg:min-h-[min(64vh,640px)]">
+        <ParallaxImage src={image} alt={imageAlt} priority className="-z-10" />
+        <div className="scrim-bottom absolute inset-0 -z-10" />
+        <div className="container-page pb-12 pt-32 sm:pb-16">
+          <nav aria-label="Breadcrumb" className="rise text-xs uppercase tracking-[0.2em] text-sand-50/75">
+            <Link href="/" className="hover:text-white">Home</Link>
+            <span className="mx-2">/</span>
+            <span>{eyebrow}</span>
+          </nav>
+          <h1 className="rise display mt-5 max-w-4xl text-[2.9rem] sm:text-7xl" style={{ animationDelay: "100ms" }}>
+            {title}
+          </h1>
+          {intro && (
+            <p className="rise mt-5 max-w-2xl text-lg leading-relaxed text-sand-50/85" style={{ animationDelay: "200ms" }}>
+              {intro}
+            </p>
+          )}
+          {children}
+        </div>
+      </section>
+    );
+  }
   return (
     <section>
       <div className="container-page pb-14 pt-12 sm:pb-20 sm:pt-20">
         <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.2em] text-ink-mute">
           <Link href="/" className="hover:text-ink">Home</Link>
           <span className="mx-2">/</span>
-          <span className="text-sindoor-600">{eyebrow}</span>
+          <span>{eyebrow}</span>
         </nav>
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-          <Reveal>
-            <h1 className="display max-w-4xl text-[3rem] text-ink sm:text-7xl lg:text-[5.4rem]">
-              {title}
-            </h1>
-          </Reveal>
-          {hindi && (
-            <Reveal delay={120}>
-              <p className="font-hindi text-4xl text-marigold-600 lg:text-5xl">{hindi}</p>
-            </Reveal>
-          )}
-        </div>
-        {intro && (
-          <Reveal delay={160}>
-            <p className="mt-8 max-w-2xl font-display text-[1.45rem] italic leading-snug text-ink-soft">
-              {intro}
-            </p>
-          </Reveal>
-        )}
+        <h1 className="display mt-8 max-w-4xl text-[3rem] text-ink sm:text-7xl">{title}</h1>
+        {intro && <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">{intro}</p>}
         {children}
       </div>
-      <div className="container-page">
-        <div className="rule-double" />
-      </div>
+      <div className="container-page"><div className="rule" /></div>
     </section>
   );
 }

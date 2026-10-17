@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { big, stock } from "@/lib/images";
 import Link from "next/link";
 import { Megaphone, Phone } from "lucide-react";
 import Reveal from "@/components/Reveal";
@@ -17,13 +18,14 @@ export default function ProgramsPage() {
     <>
       <PageHero
         eyebrow="Programs"
-        hindi="शिक्षा"
+        image={big(stock.girlsClassroom)}
+        imageAlt="Girls in a village classroom"
         title="Our Programmes"
         intro="Every programme sits under शिक्षा, सेवा and जागरूकता — education, service and awareness — the three parts of the ring in our mark."
       >
-        <nav aria-label="Pillars" className="mt-10 flex flex-wrap gap-2">
+        <nav aria-label="Pillars" className="rise mt-8 flex flex-wrap gap-2" style={{ animationDelay: "300ms" }}>
           {pillars.map((pl) => (
-            <a key={pl.key} href={`#${pl.key}`} className={` px-4 py-2 text-sm font-bold ${tone[pl.tone].chip}`}>
+            <a key={pl.key} href={`#${pl.key}`} className="border border-sand-50/40 px-4 py-2 text-sm text-sand-50 transition-colors hover:bg-sand-50 hover:text-ink">
               <span className="font-hindi mr-1.5 font-normal">{pl.hindi}</span> {pl.name}
             </a>
           ))}

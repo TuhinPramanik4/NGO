@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { big, stock } from "@/lib/images";
 import { Ambulance, Mail, MapPin, Phone } from "lucide-react";
 import ContactForm from "@/components/forms/ContactForm";
 import { PageHero } from "@/components/ui";
@@ -19,7 +20,8 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        hindi="संपर्क"
+        image={big(stock.duskWalk)}
+        imageAlt="A woman walking home at dusk"
         title="Contact Us"
         intro="For partnerships, CSR, media or simply to visit a centre — we'd love to hear from you."
       />

@@ -29,5 +29,28 @@ export const pool = {
   diya: [10182772, 13689170, 20302339, 33360798, 30425298, 10178166],
 } as const;
 
+// Large stock photographs for full-width moments in the demo. All Pexels,
+// all rural India. Swap for the Sansthan's own high-resolution photos later.
+export const stock = {
+  alphabetWall: 20556421, // children by a Hindi alphabet chart
+  classroom: 18012456,
+  girlsClassroom: 1895114,
+  schoolgirls: 3920704,
+  flagDay: 16118310,
+  womenGathering: 14995279,
+  womenFields: 20356777,
+  grainField: 20407441,
+  elderWoman: 15759710,
+  eldersOnGhat: 1370281,
+  floodGhat: 33329468,
+  floodTemple: 33329471,
+  riverPlain: 5399393,
+  villageHouse: 24428857,
+  duskWalk: 13354592,
+  diyas: 13689170,
+} as const;
+
+export const big = (id: number, w = 2400, h = 1500) => px(id, w, h);
+
 // The NGO's own promotional video (from shatakshi.org).
 export const promoVideo = { vimeoId: "844853329" };

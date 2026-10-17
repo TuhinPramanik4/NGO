@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import GalleryGrid from "@/components/GalleryGrid";
 import { PageHero, SectionHeading } from "@/components/ui";
-import { promoVideo } from "@/lib/images";
+import { promoVideo, big, stock } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -13,7 +13,8 @@ export default function GalleryPage() {
     <>
       <PageHero
         eyebrow="Gallery"
-        hindi="झलक"
+        image={big(stock.womenGathering)}
+        imageAlt="Women at a village gathering"
         title="Gallery"
         intro="Photographs taken by Team Shatakshi in classrooms, kitchens, ambulances and the flood itself."
       />
