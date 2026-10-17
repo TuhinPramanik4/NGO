@@ -5,55 +5,129 @@ import {
   UtensilsCrossed,
   Ambulance,
   Flame,
+  Megaphone,
   type LucideIcon,
 } from "lucide-react";
-import { px, pool } from "./images";
+import { px, pool, photo } from "./images";
 
 export const org = {
   name: "Shatakshi Seva Sansthan",
   registeredName: "Shatakshi Educational & Welfare Trust",
-  tagline: "सेवा परमो धर्मः — Service is the supreme duty",
-  mantra: "Shiksha · Seva · Jagrukta (Education · Service · Awareness)",
+  motto: "सेवा परमो धर्मः",
+  mottoEn: "Service is the highest duty",
+  promise: "No one unseen.",
   established: "2011",
   regNo: "16100",
-  exemptions: "Registered under Indian Trusts Act 1882 · 12-A & 80-G certified",
+  exemptions: "Indian Trusts Act, 1882 · 12-A & 80-G certified",
   phone: "+91 83406 00249",
   phoneRaw: "918340600249",
   email: "naveenranjan8@gmail.com",
   address:
-    "Manikpur, Shrivastav Road, near Shiv Mandir, Dist. Gopalganj, Bihar — 841428",
+    "Manikpur, Shrivastav Road, near Shiv Mandir, Gopalganj, Bihar 841428",
   founder: "Naveen Shrivastava",
   partner: "Share India",
 };
 
-export type Stat = {
-  label: string;
-  value: number;
-  suffix?: string;
-  prefix?: string;
+/* ------------------------------------------------------------------ */
+/* Tones — every program belongs to one of three brand colours.        */
+/* Class strings are written out in full so Tailwind can see them.     */
+/* ------------------------------------------------------------------ */
+
+export type Tone = "river" | "marigold" | "sindoor";
+
+export const tone: Record<
+  Tone,
+  { chip: string; icon: string; text: string; ring: string; solid: string }
+> = {
+  river: {
+    chip: "bg-river-50 text-river-700",
+    icon: "bg-river-100 text-river-700",
+    text: "text-river-700",
+    ring: "ring-river-200",
+    solid: "bg-river-800 text-sand-50",
+  },
+  marigold: {
+    chip: "bg-marigold-50 text-marigold-700",
+    icon: "bg-marigold-100 text-marigold-700",
+    text: "text-marigold-700",
+    ring: "ring-marigold-200",
+    solid: "bg-marigold-500 text-river-950",
+  },
+  sindoor: {
+    chip: "bg-sindoor-50 text-sindoor-600",
+    icon: "bg-sindoor-100 text-sindoor-600",
+    text: "text-sindoor-600",
+    ring: "ring-sindoor-100",
+    solid: "bg-sindoor-600 text-sand-50",
+  },
 };
 
-export const impactStats: Stat[] = [
-  { label: "Children Educated", value: 800, suffix: "+" },
-  { label: "Unclaimed Bodies Cremated", value: 1200, suffix: "+" },
-  { label: "Elderly Fed Daily", value: 47 },
-  { label: "Villages Reached", value: 30, suffix: "+" },
+/* ------------------------------------------------------------------ */
+/* The three pillars — from the original deck: शिक्षा · सेवा · जागरूकता */
+/* ------------------------------------------------------------------ */
+
+export const pillars = [
+  {
+    key: "shiksha",
+    hindi: "शिक्षा",
+    name: "Education",
+    tone: "river" as Tone,
+    line: "The first and most essential condition of human growth.",
+    programs: ["mission-arms-to-pen", "voice-of-silence", "jal-pathshala"],
+  },
+  {
+    key: "seva",
+    hindi: "सेवा",
+    name: "Service",
+    tone: "marigold" as Tone,
+    line: "Food at the door, an ambulance at midnight, a dignified farewell.",
+    programs: ["annapurna-kitchen", "life-line-ambulance", "antim-vidai"],
+  },
+  {
+    key: "jagrukta",
+    hindi: "जागरूकता",
+    name: "Awareness",
+    tone: "sindoor" as Tone,
+    line: "A 24×7 bridge between government schemes and the people they are for.",
+    programs: [],
+  },
 ];
+
+/* ------------------------------------------------------------------ */
+/* Impact numbers — all taken from the organisation's own deck.        */
+/* ------------------------------------------------------------------ */
+
+export type Stat = { label: string; value: number; suffix?: string; note?: string };
+
+export const impactStats: Stat[] = [
+  { label: "Children in free schooling", value: 800, suffix: "+", note: "across 4 centres" },
+  { label: "Unclaimed bodies given last rites", value: 1200, suffix: "+", note: "since the beginning" },
+  { label: "Elders fed, every single day", value: 47, note: "within a 12 km radius" },
+  { label: "Villages on the ambulance line", value: 25, note: "24 × 7, free" },
+  { label: "Welfare documents made", value: 1000, suffix: "+", note: "ration, Ayushman, job cards" },
+  { label: "COVID patients carried to care", value: 183, note: "during the pandemic" },
+];
+
+/* ------------------------------------------------------------------ */
+/* Programs                                                             */
+/* ------------------------------------------------------------------ */
 
 export type Program = {
   slug: string;
   name: string;
-  hindiName?: string;
-  tagline: string;
+  hindiName: string;
+  pillar: "shiksha" | "seva";
+  tone: Tone;
   icon: LucideIcon;
-  color: string; // tailwind gradient classes
-  accent: string;
+  tagline: string;
   summary: string;
+  origin?: string;
   overview: string;
   objectives: string[];
   highlights: { label: string; value: string }[];
   donationCategory: string;
   image: string;
+  gallery: string[];
 };
 
 export const programs: Program[] = [
@@ -61,335 +135,416 @@ export const programs: Program[] = [
     slug: "mission-arms-to-pen",
     name: "Mission Arms to Pen",
     hindiName: "मिशन हथियार से कलम",
-    tagline: "Where hands once held guns, children now hold pens.",
+    pillar: "shiksha",
+    tone: "river",
     icon: BookOpen,
-    color: "from-brand-500 to-brand-700",
-    accent: "brand",
+    tagline: "Where parents once held guns, their children now hold pens.",
     summary:
-      "Free education for the first-generation learners of the flood-hit diara belt of Gopalganj.",
+      "Free schooling for first-generation learners in the flood-hit diara belt of Gopalganj.",
+    origin:
+      "In the diara belt, schools shift up to 5 km away for four months of every flood season, attendance drops by 40%, and one in four children drops out.",
     overview:
-      "Launched in the Khap-Maksudpur area of the diara region, Mission Arms to Pen began with a single learning centre offering free education. Today, with support from Share India, four centres run across Khap Maksudpur, Maghi Magurha, Nawada Diyara and Manikpur — together teaching nearly 800 children, most of them the first in their families to ever learn 'A B C D'.",
+      "Mission Arms to Pen began with a single learning centre in Khap-Maksudpur. With support from Share India it now runs four centres — Khap Maksudpur, Maghi Magurha, Nawada Diyara and Manikpur — teaching nearly 800 children. Most are the first in their families to write क, ख, ग or A, B, C, D.",
     objectives: [
-      "Bring children of the diara belt into the educational mainstream",
+      "Bring diara children into the educational mainstream",
       "Reach first-generation learners with free, dignified schooling",
-      "Reduce child labour, child marriage and migration",
-      "Build community awareness around the value of education",
+      "Cut child labour, child marriage and distress migration",
+      "Build community belief in the value of education",
     ],
     highlights: [
       { label: "Children enrolled", value: "800+" },
       { label: "Learning centres", value: "4" },
-      { label: "Population impacted", value: "40,000+" },
+      { label: "People in reach", value: "40–50k" },
     ],
-    donationCategory: "Education Donation",
-    image: px(pool.school[0], 1100, 850),
+    donationCategory: "Education",
+    image: photo.classroom,
+    gallery: [photo.schoolWelcome, photo.assembly, photo.rows, photo.students],
   },
   {
     slug: "voice-of-silence",
     name: "Voice of Silence",
-    hindiName: "खामोशी की आवाज़",
-    tagline: "A good daughter becomes a good mother — and changes a generation.",
+    hindiName: "ख़ामोशी की आवाज़",
+    pillar: "shiksha",
+    tone: "sindoor",
     icon: HeartHandshake,
-    color: "from-rose-500 to-rose-700",
-    accent: "rose",
+    tagline: "A good daughter becomes a good mother — and changes a generation.",
     summary:
-      "Empowerment, health and skill education for girls and women of the diara region.",
+      "Health, mental-wellbeing and skills education for the girls of the diara region.",
+    origin:
+      "In flood and hardship, daughters are hit first. Here, people die later — dreams die first. Girls' dropout runs about 25% higher than boys'.",
     overview:
-      "In disaster and hardship, daughters suffer first — facing child marriage, malnutrition and superstition. Voice of Silence connects girls at our learning centres with health education, mental-wellbeing support, arts and skill development for their all-round growth. Its impact shows in falling child-marriage rates — and in girls like Rishita Kumari, who cleared the All-India Sainik School written exam.",
+      "Voice of Silence connects girls at Shatakshi's learning centres with health education, mental-wellbeing support, art and skill development for their all-round growth. Its effect shows in fewer child marriages — and in girls like Rishita Kumari, who cleared the All-India Sainik School written examination.",
     objectives: [
       "End child marriage through education and awareness",
-      "Provide health and mental-wellbeing education to girls",
-      "Build art, craft and life-skills for self-reliance",
-      "Create role models who inspire the next generation",
+      "Health and mental-wellbeing education for girls",
+      "Art, craft and life skills for self-reliance",
+      "Create role models for the next generation",
     ],
     highlights: [
-      { label: "Focus", value: "Girls & Women" },
-      { label: "Milestone", value: "Sainik School qualifier" },
-      { label: "Outcome", value: "Lower child marriage" },
+      { label: "Focus", value: "Girls & women" },
+      { label: "Milestone", value: "Sainik School" },
+      { label: "Seen in", value: "Fewer child marriages" },
     ],
     donationCategory: "Women Empowerment",
-    image: px(pool.women[0], 1100, 850),
+    image: photo.students,
+    gallery: [photo.classroom, photo.schoolWelcome],
+  },
+  {
+    slug: "jal-pathshala",
+    name: "Disaster Relief & Jal Pathshala",
+    hindiName: "आपदा राहत एवं जल पाठशाला",
+    pillar: "shiksha",
+    tone: "river",
+    icon: Droplets,
+    tagline: "Water everywhere in the flood — and not a drop to drink.",
+    summary:
+      "Flood relief, plus a ‘water school’ that teaches conservation and preparedness.",
+    origin:
+      "The Gandak floods six of Gopalganj's fourteen blocks every year. In June the same land runs dry and animals die by the hundred.",
+    overview:
+      "Jal Pathshala teaches children and villagers why water matters — conservation, its link to farming and health — and, just as urgently, what to do for yourself and your family when the annual flood arrives. In the flood season the team turns to relief and rapid response.",
+    objectives: [
+      "Flood relief and rapid response in the diara belt",
+      "Teach water conservation and its link to life",
+      "Prepare families before the flood season",
+      "Protect livestock and the environment",
+    ],
+    highlights: [
+      { label: "Flood-hit blocks", value: "6 of 14" },
+      { label: "Audience", value: "Children & families" },
+      { label: "Focus", value: "Preparedness" },
+    ],
+    donationCategory: "Disaster Relief",
+    image: photo.floodHomes,
+    gallery: [photo.floodSchool, photo.khapVillage],
   },
   {
     slug: "annapurna-kitchen",
     name: "Maa Shatakshi Annapurna Kitchen",
-    hindiName: "अन्नपूर्णा रसोई",
-    tagline: "A fistful of grain today, a meal of dignity tomorrow.",
+    hindiName: "माँ शताक्षी अन्नपूर्णा रसोई",
+    pillar: "seva",
+    tone: "marigold",
     icon: UtensilsCrossed,
-    color: "from-saffron-500 to-saffron-700",
-    accent: "saffron",
+    tagline: "One fistful of grain — एक मुट्ठी अनाज — for those with no one.",
     summary:
-      "Hot meals delivered every day to the doorsteps of helpless and abandoned elderly.",
+      "A hot meal carried every day to the doorsteps of abandoned and helpless elders.",
+    origin:
+      "In almost every village there are two or three elders with no one left — often left behind by children who moved to the city.",
     overview:
-      'Built on the thought "a fistful of grain for the needy", Annapurna Kitchen carries hot, fresh food right to the huts of destitute, abandoned, blind and disabled elders. Team Shatakshi currently feeds 47 helpless elderly people every single day across a 12-kilometre radius — so that no one in our villages dies of hunger and neglect.',
+      "Team Shatakshi carries fresh food, every day, to the huts of 47 destitute, abandoned, blind and disabled elders across a 12-kilometre radius of Manikpur. The mind lives on relationships; the body lives on food — the kitchen tries to give both. It has been covered by Dainik Jagran and ETV Bharat.",
     objectives: [
-      "Deliver a daily hot meal to abandoned elders' doorsteps",
-      "Restore dignity to the most neglected in rural Gopalganj",
-      "Expand the radius so more helpless people are reached",
-      "Mobilise the community around 'one fistful of grain'",
+      "A daily hot meal at every abandoned elder's door",
+      "Restore dignity to the most neglected",
+      "Widen the radius so more elders are reached",
+      "Rally villages around ‘one fistful of grain’",
     ],
     highlights: [
       { label: "Fed every day", value: "47" },
-      { label: "Coverage radius", value: "12 km" },
-      { label: "Cost", value: "Free, daily" },
+      { label: "Radius", value: "12 km" },
+      { label: "Cost to them", value: "Free" },
     ],
-    donationCategory: "Food Donation",
-    image: px(pool.food[0], 1100, 850),
+    donationCategory: "Food",
+    image: photo.annapurna,
+    gallery: [photo.ekMutthi, photo.founders],
   },
   {
-    slug: "free-ambulance-service",
+    slug: "life-line-ambulance",
     name: "Shatakshi Life Line",
     hindiName: "निःशुल्क एंबुलेंस सेवा",
-    tagline: "A 24×7 lifeline for villages the system forgot.",
+    pillar: "seva",
+    tone: "marigold",
     icon: Ambulance,
-    color: "from-sky-500 to-sky-700",
-    accent: "sky",
+    tagline: "A free ambulance that answers at midnight, in the flood.",
     summary:
-      "A free 24×7 ambulance service connecting 25 villages to emergency healthcare.",
+      "A free 24×7 ambulance linking 25 villages to the Sadar Hospital.",
+    origin:
+      "It began after a pregnant mother and her newborn died during childbirth for want of transport.",
     overview:
-      "Born after a pregnant mother and her newborn were lost for want of timely transport, Shatakshi Life Line runs a free 24×7 ambulance linking 25 villages to the Sadar Hospital. During COVID-19 it carried 183 patients to care centres and returned 48 deceased to their families — saving hundreds of lives when help was nowhere else to be found.",
+      "Shatakshi Life Line runs a free 24×7 ambulance across 25 villages, taking patients to the Sadar Hospital when they need it — hundreds of lives have been saved. During COVID-19 it carried 183 patients to care centres, brought 48 who had died home to their families, and gave last rites to 22 whose families could not.",
     objectives: [
-      "Provide free emergency transport across 25 villages",
-      "Cut maternal and infant deaths from delayed care",
-      "Stand by communities through disasters and pandemics",
-      "Keep a 24×7 helpline that always answers",
+      "Free emergency transport across 25 villages",
+      "Fewer maternal and infant deaths from delay",
+      "Stand by communities through floods and pandemics",
+      "A helpline that always answers",
     ],
     highlights: [
-      { label: "Villages linked", value: "25" },
-      { label: "COVID patients moved", value: "183" },
+      { label: "Villages", value: "25" },
+      { label: "COVID patients", value: "183" },
       { label: "Availability", value: "24 × 7" },
     ],
-    donationCategory: "Ambulance Support",
-    image: px(pool.ambulance[1], 1100, 850),
-  },
-  {
-    slug: "disaster-water-preservation",
-    name: "Disaster Relief & Jal Pathshala",
-    hindiName: "आपदा राहत एवं जल पाठशाला",
-    tagline: "Water all around, yet not a drop to drink.",
-    icon: Droplets,
-    color: "from-cyan-500 to-cyan-700",
-    accent: "cyan",
-    summary:
-      "Emergency flood relief plus a 'water school' teaching conservation and preparedness.",
-    overview:
-      "Bihar is among India's most flood-affected states, and Gopalganj's diara belt floods every year. Jal Pathshala teaches children and communities about the value of water, its conservation, and the link between water, agriculture, health and the environment — alongside practical guidance on how to protect themselves and their families when the floods arrive.",
-    objectives: [
-      "Run flood relief and rapid response in the diara belt",
-      "Teach water conservation and its link to life",
-      "Prepare families for the annual flood season",
-      "Protect livestock and the environment during disasters",
-    ],
-    highlights: [
-      { label: "Theme", value: "Environment" },
-      { label: "Audience", value: "Children & villagers" },
-      { label: "Focus", value: "Preparedness" },
-    ],
-    donationCategory: "Disaster Relief",
-    image: px(pool.flood[0], 1100, 850),
+    donationCategory: "Ambulance",
+    image: photo.ambulance,
+    gallery: [photo.team],
   },
   {
     slug: "antim-vidai",
-    name: "Antim Vidai — Last Rites",
-    hindiName: "लावारिस शवों का अंतिम संस्कार",
-    tagline: "For us, no body is 'unclaimed' — every soul is a relation.",
+    name: "Antim Vidai",
+    hindiName: "अंतिम विदाई",
+    pillar: "seva",
+    tone: "marigold",
     icon: Flame,
-    color: "from-amber-600 to-orange-800",
-    accent: "amber",
+    tagline: "For us, no body is ‘unclaimed’. Every soul is a relation.",
     summary:
-      "Dignified last rites for unidentified and abandoned bodies — over 1,200 to date.",
+      "Dignified last rites for unidentified and abandoned bodies — more than 1,200 so far.",
+    origin:
+      "Searching the Ganga for his drowned brother, the founder found many unclaimed bodies. A boatman asked: “If this were your brother, what would you do?”",
     overview:
-      'This service began with a personal grief: while searching the Ganga for his drowned brother, the founder encountered many unclaimed bodies. A boatman asked, "If this were your brother, what would you do?" That question changed everything. Shatakshi has since performed the last rites of over 1,200 unidentified people — because the dignity of a final farewell is every human\'s social and religious right.',
+      "That question became a calling. Shatakshi has since performed the last rites of more than 1,200 unidentified people, because a final farewell is every human being's social and religious right. The work has been covered by ETV Bharat, The Hindu, BBC Urdu and Dainik Jagran.",
     objectives: [
-      "Give dignified last rites to unidentified bodies",
-      "Uphold every human's right to a final farewell",
-      "Support families who cannot perform rites themselves",
+      "Dignified last rites for unidentified bodies",
+      "Uphold every person's right to a farewell",
+      "Support families who cannot perform rites",
       "Protect public health and the environment",
     ],
     highlights: [
-      { label: "Last rites performed", value: "1,200+" },
-      { label: "Recognised by", value: "ETV Bharat, BBC" },
+      { label: "Farewells given", value: "1,200+" },
+      { label: "Covered by", value: "The Hindu, BBC" },
       { label: "Principle", value: "Dignity for all" },
     ],
-    donationCategory: "General Donation",
+    donationCategory: "General",
     image: px(pool.diya[0], 1100, 850),
+    gallery: [],
   },
 ];
 
+export const programBySlug = (slug: string) => programs.find((p) => p.slug === slug);
+
+export const helpline = {
+  name: "Shatakshi Helpline",
+  hindiName: "शताक्षी हेल्पलाइन",
+  icon: Megaphone,
+  summary:
+    "A 24×7 bridge between government schemes and rural families — ration cards, MGNREGA job cards, Ayushman cards, vaccination and widow pensions. Over 1,000 documents were made during COVID-19, and returning migrant workers were linked to government skill centres so they could build livelihoods at home.",
+};
+
+/* ------------------------------------------------------------------ */
+/* Stories                                                              */
+/* ------------------------------------------------------------------ */
+
 export type Story = {
+  slug: string;
+  programSlug?: string;
   title: string;
-  date: string;
+  place: string;
   program: string;
+  tone: Tone;
   summary: string;
-  color: string;
   image: string;
 };
 
 export const stories: Story[] = [
   {
+    slug: "gun-belt-to-classroom",
+    programSlug: "mission-arms-to-pen",
     title: "From a gun-belt village to a classroom of 800",
-    date: "Khap Maksudpur, Diara",
+    place: "Khap Maksudpur, diara",
     program: "Mission Arms to Pen",
+    tone: "river",
     summary:
-      "Where parents once carried guns, their children now carry pens. Four centres now teach nearly 800 first-generation learners across the diara belt.",
-    color: "from-brand-500 to-brand-700",
-    image: px(pool.school[1], 800, 600),
+      "Four centres now teach nearly 800 first-generation learners where, a generation ago, parents carried guns.",
+    image: photo.assembly,
   },
   {
+    slug: "rishita-sainik-school",
+    programSlug: "voice-of-silence",
     title: "Rishita clears the Sainik School exam",
-    date: "Voice of Silence",
+    place: "Voice of Silence",
     program: "Voice of Silence",
+    tone: "sindoor",
     summary:
-      "A daughter of the diara region, mentored at a Shatakshi centre, qualified the All-India Sainik School written examination — an inspiration for an entire community.",
-    color: "from-rose-500 to-rose-700",
-    image: px(pool.women[1], 800, 600),
+      "A daughter of the diara, mentored at a Shatakshi centre, cleared the All-India Sainik School written exam.",
+    image: photo.classroom,
   },
   {
+    slug: "47-elders",
+    programSlug: "annapurna-kitchen",
     title: "47 elders, one hot meal, every single day",
-    date: "Manikpur, Gopalganj",
+    place: "Manikpur, Gopalganj",
     program: "Annapurna Kitchen",
+    tone: "marigold",
     summary:
-      "Maa Shatakshi Annapurna Kitchen carries fresh food to the doorsteps of 47 abandoned elders daily, across a 12 km radius — covered by Dainik Jagran and ETV Bharat.",
-    color: "from-saffron-500 to-saffron-700",
-    image: px(pool.food[1], 800, 600),
+      "Fresh food carried to the doorsteps of 47 abandoned elders across a 12 km radius — covered by Dainik Jagran.",
+    image: photo.annapurna,
   },
   {
-    title: "183 lives moved to safety during COVID-19",
-    date: "Pandemic Response",
+    slug: "covid-life-line",
+    programSlug: "life-line-ambulance",
+    title: "183 patients carried to care during COVID-19",
+    place: "Pandemic response",
     program: "Shatakshi Life Line",
+    tone: "marigold",
     summary:
-      "When help was nowhere to be found, the free ambulance carried 183 COVID patients to care and returned 48 of the deceased to their families with dignity.",
-    color: "from-sky-500 to-sky-700",
-    image: px(pool.ambulance[0], 800, 600),
+      "When no other help came, the free ambulance carried 183 patients to care and brought 48 who had died home to their families.",
+    image: photo.ambulance,
   },
   {
-    title: "A brother's grief becomes 1,200 farewells",
-    date: "Antim Vidai",
+    slug: "1200-farewells",
+    programSlug: "antim-vidai",
+    title: "A brother's grief became 1,200 farewells",
+    place: "Antim Vidai",
     program: "Antim Vidai",
+    tone: "marigold",
     summary:
-      "A single question on a riverbank set Naveen Shrivastava on a path that has given dignified last rites to more than 1,200 unidentified people.",
-    color: "from-amber-600 to-orange-800",
+      "One question on a riverbank set Naveen Shrivastava on a path of dignified last rites for the unidentified.",
     image: px(pool.diya[1], 800, 600),
   },
   {
-    title: "1,000+ documents made during the pandemic",
-    date: "Shatakshi Helpline",
+    slug: "1000-documents",
+    title: "1,000+ welfare documents in a pandemic",
+    place: "Shatakshi Helpline",
     program: "Awareness",
+    tone: "sindoor",
     summary:
-      "Through a 24×7 helpline, the team linked villagers to ration cards, MGNREGA job cards, Ayushman cards and widow pensions — over 1,000 made during COVID-19.",
-    color: "from-emerald-500 to-emerald-700",
-    image: px(pool.volunteer[0], 800, 600),
+      "Ration cards, job cards, Ayushman cards and widow pensions — made for families who did not know they were entitled.",
+    image: photo.team,
   },
 ];
 
-export type Testimonial = {
-  quote: string;
-  name: string;
-  role: string;
-  image: string;
-};
-
-export const testimonials: Testimonial[] = [
+export const testimonials = [
   {
     quote:
-      "Where there was once a gun in a parent's hand, today there is a pen in their child's. That is the change Shatakshi has brought to our village.",
+      "Where there was once a gun in a parent's hand, today there is a pen in their child's. That is the change in our village.",
     name: "A parent",
     role: "Khap Maksudpur",
-    image: px(pool.portrait[0], 200, 200),
   },
   {
     quote:
-      "I am the first in my family to read and write. My teachers at the centre believed in me before I believed in myself.",
+      "I am the first in my family to read and write. My teachers believed in me before I believed in myself.",
     name: "A student",
     role: "Mission Arms to Pen",
-    image: px(pool.women[3], 200, 200),
   },
   {
     quote:
-      "When no ambulance would come, Shatakshi Life Line did — at midnight, in the flood, for free. They saved my mother.",
+      "When no ambulance would come, Shatakshi Life Line did — at midnight, in the flood, for free.",
     name: "A villager",
     role: "Diara region",
-    image: px(pool.portrait[2], 200, 200),
   },
 ];
 
+export const press = ["The Hindu", "BBC Urdu", "ETV Bharat", "Dainik Jagran", "DD News Bihar", "Humans of Bombay", "Chauthi Duniya"];
+
+/* ------------------------------------------------------------------ */
+/* Site chrome                                                          */
+/* ------------------------------------------------------------------ */
+
 export const navLinks = [
-  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Programs", href: "/programs" },
   { label: "Impact", href: "/impact" },
   { label: "Gallery", href: "/gallery" },
-  { label: "Blog", href: "/blog" },
+  { label: "News", href: "/blog" },
+  { label: "Volunteer", href: "/volunteer" },
   { label: "Contact", href: "/contact" },
 ];
 
 export const coreValues = [
-  { title: "Humanity", desc: "Every life deserves dignity, care and a chance." },
-  { title: "Education", desc: "The first and most essential condition of human growth." },
-  { title: "Equality", desc: "Daughters and sons, rich and poor — all stand equal." },
-  { title: "Transparency", desc: "Honest work, open accounts, accountable service." },
-  { title: "Service", desc: "Seva is the highest path a human life can take." },
+  { title: "Humanity", hindi: "मानवता", desc: "Every life deserves dignity — in living and in leaving." },
+  { title: "Education", hindi: "शिक्षा", desc: "The first and most essential condition of human growth." },
+  { title: "Equality", hindi: "समानता", desc: "Daughters and sons, rich and poor, stand equal." },
+  { title: "Transparency", hindi: "पारदर्शिता", desc: "Honest work, open accounts, answerable service." },
+  { title: "Service", hindi: "सेवा", desc: "Seva is the highest path a human life can take." },
 ];
 
 export const team = [
-  { name: "Naveen Shrivastava", role: "Founder", initials: "NS" },
-  { name: "Shilpi Saxena", role: "Co-founder & Trustee", initials: "SS" },
-  { name: "Nilesh Tripathi", role: "Senior Member", initials: "NT" },
-  { name: "Pradeep Sinha", role: "Member", initials: "PS" },
-  { name: "Dilip Sinha", role: "Member", initials: "DS" },
-  { name: "Team Shatakshi", role: "Volunteers on the ground", initials: "TS" },
+  { name: "Naveen Shrivastava", role: "Founder", image: photo.founder },
+  { name: "Shilpi Saxena", role: "Co-founder & Trustee" },
+  { name: "Nilesh Tripathi", role: "Core team" },
+  { name: "Pradeep Sinha", role: "Core team" },
+  { name: "Dilip Sinha", role: "Core team" },
+  { name: "Raju Shahi", role: "Core team" },
 ];
 
 export const blogPosts = [
   {
+    slug: "diara-needs-schools",
     title: "Why the diara belt of Gopalganj needs more schools",
     category: "Education",
     date: "May 2026",
     excerpt:
-      "Of 234 panchayats in the district, around 155 have no high school. Here is why every additional learning centre changes lives.",
-    color: "from-brand-500 to-brand-700",
-    image: px(pool.school[2], 900, 600),
+      "Of 234 panchayats in the district, around 155 have no high school. Here is what one more learning centre changes.",
+    image: photo.rows,
   },
   {
-    title: "Maa Shatakshi Annapurna Kitchen featured in Dainik Jagran",
+    slug: "annapurna-in-dainik-jagran",
+    title: "Annapurna Kitchen featured in Dainik Jagran",
     category: "Announcements",
     date: "Jul 2024",
     excerpt:
-      "A small initiative that now reaches the homes of helpless elders across a 12 km radius — covered by leading newspapers.",
-    color: "from-saffron-500 to-saffron-700",
-    image: px(pool.food[2], 900, 600),
+      "A small idea that now reaches the homes of helpless elders across a 12 km radius.",
+    image: photo.ekMutthi,
   },
   {
-    title: "Voice of Silence: ending child marriage through education",
+    slug: "voice-of-silence-child-marriage",
+    title: "Ending child marriage, one classroom at a time",
     category: "Women Empowerment",
     date: "Apr 2026",
     excerpt:
-      "How connecting girls to health, mental and skill education is quietly transforming the future of the diara region.",
-    color: "from-rose-500 to-rose-700",
-    image: px(pool.women[2], 900, 600),
+      "How health, mental-wellbeing and skills education is quietly changing what girls in the diara expect from life.",
+    image: photo.students,
   },
   {
-    title: "Preparing for the flood season with Jal Pathshala",
+    slug: "flood-season-jal-pathshala",
+    title: "Getting ready for the flood season with Jal Pathshala",
     category: "Disaster Relief",
     date: "Jun 2026",
     excerpt:
-      "Every year the diara region floods. Here is what families learn at our 'water school' to keep themselves safe.",
-    color: "from-cyan-500 to-cyan-700",
-    image: px(pool.flood[1], 900, 600),
+      "Every year the diara floods. Here is what families learn at the ‘water school’ to keep themselves safe.",
+    image: photo.floodSchool,
+  },
+  {
+    slug: "mauritius-recognition",
+    title: "Recognition from the former President of Mauritius",
+    category: "Events",
+    date: "Mar 2026",
+    excerpt:
+      "Team Shatakshi's work in the diara was honoured in March 2026.",
+    image: photo.award,
   },
 ];
 
-export const galleryCategories = [
-  "All",
-  "Education",
-  "Food Distribution",
-  "Ambulance Service",
-  "Disaster Relief",
-  "Events",
+export const blogCategories = ["All", "Education", "Women Empowerment", "Disaster Relief", "Health", "Events", "Announcements"];
+
+export type GalleryItem = { src: string; alt: string; category: string; w: number; h: number };
+
+export const galleryCategories = ["All", "Education", "Food", "Ambulance", "Disaster Relief", "Events"];
+
+export const gallery: GalleryItem[] = [
+  { src: photo.schoolWelcome, alt: "Children outside Shatakshi Free Bal Vidyapeeth", category: "Education", w: 340, h: 255 },
+  { src: photo.assembly, alt: "Morning assembly of students in uniform", category: "Education", w: 423, h: 406 },
+  { src: photo.classroom, alt: "A teacher leading an open-air class", category: "Education", w: 382, h: 254 },
+  { src: photo.ambulance, alt: "The free Shatakshi ambulance", category: "Ambulance", w: 264, h: 408 },
+  { src: photo.annapurna, alt: "Tiffins lined up at Annapurna Kitchen", category: "Food", w: 431, h: 323 },
+  { src: photo.students, alt: "Students seated together at a centre", category: "Education", w: 400, h: 225 },
+  { src: photo.floodHomes, alt: "Homes in the diara after the flood", category: "Disaster Relief", w: 504, h: 175 },
+  { src: photo.ekMutthi, alt: "‘Ek mutthi anaj’ campaign banner", category: "Food", w: 430, h: 313 },
+  { src: photo.team, alt: "Team Shatakshi volunteers", category: "Events", w: 362, h: 204 },
+  { src: photo.rows, alt: "Students in rows on the ground", category: "Education", w: 400, h: 191 },
+  { src: photo.award, alt: "Recognition from the former President of Mauritius", category: "Events", w: 381, h: 386 },
+  { src: photo.floodSchool, alt: "A school building surrounded by flood silt", category: "Disaster Relief", w: 495, h: 182 },
+  { src: photo.founders, alt: "The founders at Maa Shatakshi Rasoi", category: "Food", w: 309, h: 233 },
+  { src: photo.khapVillage, alt: "Khap village in the diara", category: "Disaster Relief", w: 716, h: 251 },
 ];
 
 export const donationTiers = [
-  { amount: 500, label: "Feeds an elder for a week", category: "Food Donation" },
-  { amount: 1000, label: "A month of school supplies", category: "Education Donation" },
-  { amount: 2500, label: "Supports an ambulance run", category: "Ambulance Support" },
-  { amount: 5000, label: "Sponsors a child's term", category: "Education Donation" },
+  { amount: 500, label: "A week of hot meals for one elder" },
+  { amount: 1000, label: "A month of books and supplies for a child" },
+  { amount: 2500, label: "Fuel for emergency ambulance runs" },
+  { amount: 5000, label: "A term of schooling for a child" },
+];
+
+export const donationCategories = [
+  { key: "General", label: "Where it's needed most" },
+  { key: "Education", label: "Mission Arms to Pen" },
+  { key: "Food", label: "Annapurna Kitchen" },
+  { key: "Ambulance", label: "Shatakshi Life Line" },
+  { key: "Women Empowerment", label: "Voice of Silence" },
+  { key: "Disaster Relief", label: "Disaster Relief" },
+];
+
+export const socials = [
+  { label: "Facebook", href: "https://www.facebook.com/" },
+  { label: "Instagram", href: "https://www.instagram.com/" },
+  { label: "YouTube", href: "https://www.youtube.com/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/" },
+  { label: "X", href: "https://x.com/" },
 ];

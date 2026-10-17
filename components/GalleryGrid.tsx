@@ -1,114 +1,135 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import { galleryCategories } from "@/lib/data";
-import { px, pool } from "@/lib/images";
-
-type Item = {
-  title: string;
-  category: string;
-  src: string;
-  span?: boolean;
-};
-
-const items: Item[] = [
-  { title: "First day at Khap Maksudpur centre", category: "Education", src: px(pool.school[1], 900, 900), span: true },
-  { title: "Annapurna Kitchen meal round", category: "Food Distribution", src: px(pool.food[1], 600, 600) },
-  { title: "Life Line ambulance on call", category: "Ambulance Service", src: px(pool.ambulance[1], 600, 600) },
-  { title: "Flood relief in the diara belt", category: "Disaster Relief", src: px(pool.flood[1], 600, 600) },
-  { title: "Voice of Silence workshop", category: "Education", src: px(pool.women[1], 600, 600) },
-  { title: "Community gathering at the centre", category: "Events", src: px(pool.volunteer[1], 600, 600) },
-  { title: "A diya for the forgotten", category: "Events", src: px(pool.diya[1], 600, 600) },
-  { title: "Feeding 47 elders, daily", category: "Food Distribution", src: px(pool.food[3], 900, 900), span: true },
-  { title: "Water awareness drive", category: "Disaster Relief", src: px(pool.village[2], 600, 600) },
-  { title: "Children of Nawada Diyara", category: "Education", src: px(pool.school[5], 600, 600) },
-  { title: "Patient transport to Sadar Hospital", category: "Ambulance Service", src: px(pool.ambulance[2], 600, 600) },
-  { title: "Volunteers of Team Shatakshi", category: "Events", src: px(pool.volunteer[4], 600, 600) },
-];
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, Share2, X } from "lucide-react";
+import { gallery, galleryCategories } from "@/lib/data";
 
 export default function GalleryGrid() {
-  const [active, setActive] = useState("All");
-  const [lightbox, setLightbox] = useState<Item | null>(null);
-  const filtered =
-    active === "All" ? items : items.filter((i) => i.category === active);
+  const [cat, setCat] = useState("All");
+  const [active, setActive] = useState<number | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  const items = cat === "All" ? gallery : gallery.filter((g) => g.category === cat);
+  const current = active !== null ? items[active] : null;
+
+  const step = useCallback(
+    (d: number) => setActive((i) => (i === null ? i : (i + d + items.length) % items.length)),
+    [items.length]
+  );
+
+  useEffect(() => {
+    if (active === null) return;
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActive(null);
+      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowLeft") step(-1);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [active, step]);
+
+  const share = async () => {
+    if (!current) return;
+    const data = { title: "Shatakshi Seva Sansthan", text: current.alt, url: window.location.href };
+    if (navigator.share) await navigator.share(data).catch(() => {});
+    else await navigator.clipboard?.writeText(window.location.href);
+  };
 
   return (
-    <div>
-      {/* Filters */}
-      <div className="flex flex-wrap gap-2.5">
-        {galleryCategories.map((cat) => (
+    <>
+      <div role="tablist" aria-label="Filter photos" className="flex flex-wrap gap-2">
+        {galleryCategories.map((c) => (
           <button
-            key={cat}
-            onClick={() => setActive(cat)}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-              active === cat
-                ? "bg-brand-700 text-white shadow-lg shadow-brand-700/25"
-                : "border border-brand-200 text-brand-700 hover:bg-brand-100"
+            key={c}
+            role="tab"
+            aria-selected={cat === c}
+            onClick={() => setCat(c)}
+            className={`rounded-full px-4 py-2 text-sm font-bold transition-colors ${
+              cat === c ? "bg-river-900 text-sand-50" : "bg-white text-ink-soft ring-1 ring-line hover:text-river-900"
             }`}
           >
-            {cat}
+            {c}
           </button>
         ))}
       </div>
 
-      {/* Grid */}
-      <div className="mt-10 grid auto-rows-[200px] grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {filtered.map((item, i) => (
-          <button
-            key={item.title + i}
-            onClick={() => setLightbox(item)}
-            className={`group relative overflow-hidden rounded-2xl bg-brand-100 text-left shadow-lg ${
-              item.span ? "sm:col-span-2 sm:row-span-2" : ""
-            }`}
-          >
-            <Image
-              src={item.src}
-              alt={item.title}
-              fill
-              sizes="(max-width: 640px) 50vw, 25vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 transition-opacity group-hover:opacity-90" />
-            <figcaption className="absolute inset-x-0 bottom-0 translate-y-2 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-              <span className="text-[11px] font-semibold uppercase tracking-wide text-saffron-200">
-                {item.category}
+      <ul className="mt-10 columns-1 gap-4 sm:columns-2 lg:columns-3 [&>li]:mb-4">
+        {items.map((g, i) => (
+          <li key={g.src} className="break-inside-avoid">
+            <button
+              onClick={() => setActive(i)}
+              className="group block w-full text-left"
+              aria-label={`Open photo: ${g.alt}`}
+            >
+              <span className="photo block rounded-[var(--radius-card)]">
+                <Image
+                  src={g.src}
+                  alt={g.alt}
+                  width={g.w}
+                  height={g.h}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.03]"
+                />
               </span>
-              <p className="text-sm font-medium text-white">{item.title}</p>
-            </figcaption>
-          </button>
+              <span className="mt-2 flex items-center justify-between text-sm">
+                <span className="text-ink-soft">{g.alt}</span>
+                <span className="shrink-0 pl-3 text-xs font-bold text-marigold-700">{g.category}</span>
+              </span>
+            </button>
+          </li>
         ))}
-      </div>
+      </ul>
 
-      {filtered.length === 0 && (
-        <p className="mt-12 text-center text-ink/50">
-          No items in this category yet.
-        </p>
-      )}
-
-      {/* Lightbox */}
-      {lightbox && (
+      {current && (
         <div
-          onClick={() => setLightbox(null)}
-          className="fixed inset-0 z-[60] grid place-items-center bg-black/80 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label={current.alt}
+          className="fixed inset-0 z-[60] flex flex-col bg-river-950/95 p-4 text-sand-50 backdrop-blur sm:p-8"
+          onClick={(e) => e.target === e.currentTarget && setActive(null)}
         >
-          <div className="relative max-h-[85vh] w-full max-w-3xl overflow-hidden rounded-2xl">
-            <Image
-              src={lightbox.src.replace(/w=\d+&h=\d+/, "w=1400&h=1000")}
-              alt={lightbox.title}
-              width={1400}
-              height={1000}
-              className="h-auto w-full object-contain"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5">
-              <span className="text-xs font-semibold uppercase tracking-wide text-saffron-300">
-                {lightbox.category}
-              </span>
-              <p className="text-lg font-semibold text-white">{lightbox.title}</p>
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-river-200">
+              {active! + 1} / {items.length} · {current.category}
+            </p>
+            <div className="flex gap-2">
+              <button onClick={share} aria-label="Share" className="grid h-11 w-11 place-items-center rounded-full bg-white/10 hover:bg-white/20">
+                <Share2 className="h-5 w-5" />
+              </button>
+              <button ref={closeRef} onClick={() => setActive(null)} aria-label="Close" className="grid h-11 w-11 place-items-center rounded-full bg-white/10 hover:bg-white/20">
+                <X className="h-5 w-5" />
+              </button>
             </div>
+          </div>
+          <div className="relative flex flex-1 items-center justify-center gap-4 py-6">
+            <button onClick={() => step(-1)} aria-label="Previous" className="hidden h-12 w-12 shrink-0 place-items-center rounded-full bg-white/10 hover:bg-white/20 sm:grid">
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <Image
+              src={current.src}
+              alt={current.alt}
+              width={current.w}
+              height={current.h}
+              className="max-h-[75vh] w-auto max-w-full rounded-xl object-contain"
+              style={{ width: Math.min(current.w * 1.6, 1100) }}
+            />
+            <button onClick={() => step(1)} aria-label="Next" className="hidden h-12 w-12 shrink-0 place-items-center rounded-full bg-white/10 hover:bg-white/20 sm:grid">
+              <ChevronRight className="h-6 w-6" />
+            </button>
+          </div>
+          <p className="display text-center text-xl">{current.alt}</p>
+          <div className="mt-4 flex justify-center gap-3 sm:hidden">
+            <button onClick={() => step(-1)} className="btn btn-light">Previous</button>
+            <button onClick={() => step(1)} className="btn btn-light">Next</button>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

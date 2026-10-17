@@ -1,103 +1,77 @@
 import type { Metadata } from "next";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import PageHeader from "@/components/PageHeader";
-import ContactForm from "@/components/ContactForm";
-import { org } from "@/lib/data";
+import { Ambulance, Mail, MapPin, Phone } from "lucide-react";
+import ContactForm from "@/components/forms/ContactForm";
+import { PageHero } from "@/components/ui";
+import { org, socials } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description:
-    "Get in touch with Shatakshi Seva Sansthan — Manikpur, Gopalganj, Bihar. Phone, email and inquiry form for partnerships, donations and volunteering.",
+  title: "Contact",
+  description: "Reach Shatakshi Seva Sansthan in Manikpur, Gopalganj, Bihar.",
 };
 
 export default function ContactPage() {
   const cards = [
-    { icon: MapPin, title: "Visit us", lines: [org.address] },
-    {
-      icon: Phone,
-      title: "Call us",
-      lines: [org.phone, "24×7 helpline & ambulance"],
-      href: `tel:${org.phoneRaw}`,
-    },
-    { icon: Mail, title: "Email us", lines: [org.email], href: `mailto:${org.email}` },
-    { icon: Clock, title: "Service hours", lines: ["Office: 9 AM – 6 PM", "Helpline: round the clock"] },
+    { icon: Phone, label: "Call", value: org.phone, href: `tel:+${org.phoneRaw}` },
+    { icon: Mail, label: "Email", value: org.email, href: `mailto:${org.email}` },
+    { icon: MapPin, label: "Office", value: org.address, href: "https://maps.google.com/?q=Manikpur+Gopalganj+Bihar+841428" },
   ];
-
   return (
     <>
-      <PageHeader
-        crumb="Contact"
-        eyebrow="Get in touch"
-        title="We'd love to hear from you"
-        subtitle="Questions, partnerships, press or just a hello — reach out and our team will respond."
+      <PageHero
+        eyebrow="Contact"
+        hindi="संपर्क"
+        title="Talk to us."
+        intro="For partnerships, CSR, media or simply to visit a centre — we'd love to hear from you."
       />
-
-      <section className="container-page py-16">
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {cards.map((c) => {
-            const Inner = (
-              <>
-                <c.icon className="h-7 w-7 text-brand-600" />
-                <h3 className="mt-3 font-display text-base font-bold text-brand-900">
-                  {c.title}
-                </h3>
-                {c.lines.map((l) => (
-                  <p key={l} className="mt-1 text-sm leading-relaxed text-ink/60">
-                    {l}
-                  </p>
-                ))}
-              </>
-            );
-            return c.href ? (
+      <section className="py-16 sm:py-24">
+        <div className="container-page grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="space-y-4">
+            <a
+              href={`tel:+${org.phoneRaw}`}
+              className="flex items-center gap-4 rounded-[var(--radius-card)] bg-sindoor-600 p-6 text-sand-50 transition-colors hover:bg-sindoor-700"
+            >
+              <Ambulance className="h-8 w-8 shrink-0" />
+              <span>
+                <span className="block text-sm font-semibold opacity-80">Emergency · free ambulance · 24×7</span>
+                <span className="display text-2xl">{org.phone}</span>
+              </span>
+            </a>
+            {cards.map(({ icon: Icon, label, value, href }) => (
               <a
-                key={c.title}
-                href={c.href}
-                className="rounded-3xl border border-brand-100 bg-white p-6 transition-colors hover:border-brand-300"
+                key={label}
+                href={href}
+                target={label === "Office" ? "_blank" : undefined}
+                rel="noreferrer"
+                className="flex gap-4 rounded-[var(--radius-card)] bg-white p-6 ring-1 ring-line transition-shadow hover:shadow-md"
               >
-                {Inner}
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-river-50 text-river-700">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-xs font-bold uppercase tracking-[0.14em] text-ink-mute">{label}</span>
+                  <span className="mt-1 block break-words font-semibold text-river-950">{value}</span>
+                </span>
               </a>
-            ) : (
-              <div
-                key={c.title}
-                className="rounded-3xl border border-brand-100 bg-white p-6"
-              >
-                {Inner}
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="mt-12 grid items-start gap-10 lg:grid-cols-[1fr_1.05fr]">
-          {/* Map */}
-          <div className="lg:sticky lg:top-28">
-            <h2 className="font-display text-2xl font-bold text-brand-900">
-              Find us in Gopalganj
-            </h2>
-            <p className="mt-3 leading-relaxed text-ink/65">
-              Our office is in Manikpur, on Shrivastav Road near the Shiv Mandir,
-              in the diara belt of district Gopalganj, Bihar.
-            </p>
-            <div className="mt-6 overflow-hidden rounded-3xl border border-brand-100 shadow-lg">
+            ))}
+            <div className="overflow-hidden rounded-[var(--radius-card)] ring-1 ring-line">
               <iframe
-                title="Shatakshi Seva Sansthan location — Gopalganj"
-                src="https://www.google.com/maps?q=Gopalganj,Bihar&output=embed"
-                className="h-80 w-full"
+                title="Map — Manikpur, Gopalganj"
+                src="https://www.google.com/maps?q=Manikpur,+Gopalganj,+Bihar+841428&output=embed"
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+                className="h-72 w-full grayscale-[40%]"
               />
             </div>
+            <ul className="flex flex-wrap gap-2 pt-2">
+              {socials.map((s) => (
+                <li key={s.label}>
+                  <a href={s.href} target="_blank" rel="noreferrer" className="inline-flex rounded-full px-4 py-2 text-sm font-semibold ring-1 ring-line hover:ring-river-900">
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-
-          {/* Form */}
-          <div>
-            <h2 className="font-display text-2xl font-bold text-brand-900">
-              Send us a message
-            </h2>
-            <p className="mt-3 mb-6 leading-relaxed text-ink/65">
-              Fill out the form and we&apos;ll get back to you as soon as we can.
-            </p>
-            <ContactForm />
-          </div>
+          <ContactForm />
         </div>
       </section>
     </>

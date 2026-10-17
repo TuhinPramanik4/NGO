@@ -1,238 +1,179 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { Target, Eye, Award, MapPin, CheckCircle2 } from "lucide-react";
-import { px, pool } from "@/lib/images";
-import PageHeader from "@/components/PageHeader";
-import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
-import DonationCTA from "@/components/DonationCTA";
-import { org, coreValues, team } from "@/lib/data";
+import { PageHero, Photo, SectionHeading } from "@/components/ui";
+import { DonationBand, PressStrip } from "@/components/blocks";
+import { coreValues, org, team } from "@/lib/data";
+import { photo } from "@/lib/images";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About us",
   description:
-    "The story of Shatakshi Seva Sansthan — a registered trust born from personal grief, now serving the flood-affected diara region of Gopalganj, Bihar since 2011.",
+    "The story of Shatakshi Seva Sansthan — founded in 2011 in Manikpur, Gopalganj by Naveen Shrivastava and Shilpi Saxena.",
 };
+
+const timeline = [
+  { year: "Before 2011", text: "Searching the Ganga for his drowned brother, Naveen Shrivastava finds many unclaimed bodies — and begins giving them last rites." },
+  { year: "2011", text: "Shatakshi Educational & Welfare Trust is registered in Gopalganj, inspired by his brother Vikas." },
+  { year: "Diara", text: "Mission Arms to Pen opens its first free learning centre in Khap-Maksudpur." },
+  { year: "Life Line", text: "After a mother and newborn die for want of transport, the free 24×7 ambulance begins." },
+  { year: "COVID-19", text: "183 patients carried to care, 1,000+ welfare documents made, migrant workers linked to skill centres." },
+  { year: "Today", text: "4 centres, ~800 children, 47 elders fed daily, 1,200+ farewells — and recognition from the former President of Mauritius." },
+];
 
 export default function AboutPage() {
   return (
     <>
-      <PageHeader
-        crumb="About"
-        eyebrow="Who we are"
-        title="A mission born from grief, grown into hope"
-        subtitle="Shatakshi Educational & Welfare Trust has worked since 2011 to bring positive change to the flood-affected diara belt of Gopalganj, Bihar."
+      <PageHero
+        eyebrow="About us"
+        hindi="सेवा"
+        title={<>Fifteen years of <em className="mark not-italic">seeing</em> the unseen.</>}
+        intro={`${org.registeredName} — known as ${org.name} — was founded in ${org.established} in Gopalganj, Bihar. It is registered under the Indian Trusts Act, 1882, and certified under Sections 12-A and 80-G of the Income Tax Act.`}
       />
 
-      {/* Story */}
-      <section className="container-page py-20">
-        <div className="grid items-start gap-12 lg:grid-cols-[1.3fr_1fr]">
-          <Reveal>
-            <h2 className="font-display text-3xl font-bold text-brand-900">
-              How it began
-            </h2>
-            <div className="mt-5 space-y-4 leading-relaxed text-ink/70">
-              <p>
-                Born in Manikpur village of Gopalganj, founder{" "}
-                <span className="font-semibold text-brand-700">
-                  Naveen Shrivastava
-                </span>{" "}
-                dreamed of joining the Indian Administrative Service and travelled
-                to Prayagraj to prepare. But the death of his brother — and the
-                unclaimed bodies he encountered while searching the Ganga —
-                changed the direction of his life.
-              </p>
-              <p>
-                On the riverbank, a boatman asked him a single question:{" "}
-                <span className="font-medium italic text-brand-800">
-                  &ldquo;If this body were your brother&apos;s, what would you
-                  do?&rdquo;
-                </span>{" "}
-                That question set him on the path of seva. With his wife Shilpi
-                Saxena and his brother Vikas&apos;s inspiration, Shatakshi Seva
-                Sansthan was founded in 2011.
-              </p>
-              <p>
-                Today, with the partnership of Share India and a dedicated team,
-                the diara region has education and service where there was once
-                only hardship — kafan for one, roti for another, and shiksha for a
-                child.
-              </p>
-            </div>
-
-            <div className="mt-8 grid gap-4 sm:grid-cols-3">
-              {[
-                { k: "Established", v: org.established },
-                { k: "Reg. No.", v: org.regNo },
-                { k: "Certified", v: "12-A & 80-G" },
-              ].map((b) => (
-                <div
-                  key={b.k}
-                  className="rounded-2xl border border-brand-100 bg-white p-5"
-                >
-                  <p className="font-display text-2xl font-bold text-brand-700">
-                    {b.v}
-                  </p>
-                  <p className="text-xs uppercase tracking-wide text-ink/55">
-                    {b.k}
-                  </p>
-                </div>
-              ))}
+      {/* Founder */}
+      <section className="py-20 sm:py-28">
+        <div className="container-page grid items-start gap-14 lg:grid-cols-[0.85fr_1.15fr]">
+          <Reveal className="relative lg:sticky lg:top-32">
+            <Photo src={photo.founders} alt="The Shatakshi founders at Maa Shatakshi Rasoi" className="aspect-[4/3]" sizes="(min-width: 1024px) 460px, 100vw" />
+            <div className="absolute -bottom-6 right-6 w-36 overflow-hidden rounded-2xl border-[5px] border-sand-50 shadow-xl">
+              <Photo src={photo.founder} alt="Naveen Shrivastava" rounded="rounded-none" className="aspect-[4/5]" sizes="150px" />
             </div>
           </Reveal>
-
-          <Reveal delay={150} className="space-y-5">
-            <div className="rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 p-8 text-white shadow-xl">
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white/15">
-                <Eye className="h-6 w-6" />
-              </span>
-              <h3 className="mt-5 font-display text-xl font-bold">Our Vision</h3>
-              <p className="mt-2 text-sm leading-relaxed text-brand-50/85">
-                A diara region where no child is denied education, no elder dies of
-                neglect, and every human — in life and in death — is treated with
-                dignity.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-gradient-to-br from-saffron-500 to-saffron-700 p-8 text-white shadow-xl">
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white/15">
-                <Target className="h-6 w-6" />
-              </span>
-              <h3 className="mt-5 font-display text-xl font-bold">Our Mission</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/90">
-                To drive sustainable human development through education, service
-                and awareness in the flood-affected, socially vulnerable
-                communities of Gopalganj.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Image banner */}
-      <section className="container-page pb-4">
-        <Reveal className="relative overflow-hidden rounded-[2rem] shadow-xl">
-          <div className="relative aspect-[21/9] w-full">
-            <Image
-              src={px(pool.village[2], 1600, 700)}
-              alt="A village in the flood-affected diara belt of Gopalganj"
-              fill
-              sizes="100vw"
-              className="object-cover"
+          <div>
+            <SectionHeading
+              eyebrow="Founder's message"
+              title="Some problems choose the person who will solve them."
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-950/80 via-brand-950/40 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-center p-8 sm:p-14">
-              <p className="max-w-xl font-display text-2xl font-bold leading-snug text-white sm:text-3xl">
-                &ldquo;People here don&apos;t die in the flood first — their
-                dreams do.&rdquo;
+            <div className="mt-8 space-y-5 text-lg leading-relaxed text-ink-soft">
+              <p>
+                Born in Manikpur village in Gopalganj, Naveen Shrivastava studied in the village
+                and knew the hardships of rural life first-hand. His dream was the Indian
+                Administrative Service, and he went to Prayagraj to prepare for it.
               </p>
-              <p className="mt-3 text-sm text-brand-100/80">
-                The diara region of Gopalganj, our karmabhoomi since 2011.
+              <p>
+                Then his brother drowned in the Ganga. In the days of searching, the pain of
+                the unclaimed bodies he found changed the direction of his life. His teachers
+                told him: <em>“Serving your parents and elders — and changing the land you were
+                born on for the better — is your responsibility.”</em>
               </p>
+              <p>
+                He made his birthplace his karmabhoomi. His wife, Shilpi Saxena, has been beside
+                him at every step. Together with Nilesh Tripathi, Pradeep Sinha, Dilip Sinha,
+                Parimal, Raju Shahi, Team Shatakshi and partner Share India, they have brought
+                <strong className="text-river-900"> a shroud for some, bread for some, and
+                education for others</strong> to the diara.
+              </p>
+              <p className="display pt-2 text-2xl text-river-900">— Naveen Shrivastava, Founder</p>
             </div>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* Where we work */}
-      <section className="bg-brand-50/60">
-        <div className="container-page py-20">
-          <SectionHeading
-            eyebrow="Where we work"
-            title="The diara belt of Gopalganj"
-            subtitle="The Gandak river floods 6 of the district's 14 blocks every year. Of 234 panchayats, around 155 have no high school. This is where we serve."
-          />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { stat: "30 lakh", label: "District population, ~94% rural" },
-              { stat: "6 / 14", label: "Blocks flooded every year" },
-              { stat: "155", label: "Panchayats with no high school" },
-              { stat: "4", label: "Learning centres run by Shatakshi" },
-            ].map((d) => (
-              <Reveal
-                key={d.label}
-                className="rounded-3xl border border-brand-100 bg-white p-6"
-              >
-                <MapPin className="h-6 w-6 text-saffron-500" />
-                <p className="mt-3 font-display text-3xl font-extrabold text-brand-700">
-                  {d.stat}
-                </p>
-                <p className="mt-1 text-sm text-ink/60">{d.label}</p>
-              </Reveal>
-            ))}
           </div>
         </div>
       </section>
 
-      {/* Core values */}
-      <section className="container-page py-20">
-        <SectionHeading
-          eyebrow="What we stand for"
-          title="Our core values"
-        />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-          {coreValues.map((v, i) => (
-            <Reveal
-              key={v.title}
-              delay={i * 80}
-              className="rounded-3xl border border-brand-100 bg-white p-6"
-            >
-              <CheckCircle2 className="h-7 w-7 text-brand-500" />
-              <h3 className="mt-4 font-display text-lg font-bold text-brand-900">
-                {v.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink/60">{v.desc}</p>
+      {/* Vision & mission */}
+      <section className="bg-river-950 py-20 text-sand-50 sm:py-28">
+        <div className="container-page grid gap-6 md:grid-cols-2">
+          {[
+            {
+              k: "Vision",
+              h: "A diara where no child, elder or stranger is left unseen.",
+              p: "Sustainable human development and lasting positive change in the flood-affected regions of Bihar.",
+            },
+            {
+              k: "Mission",
+              h: "Shiksha, Seva, Jagrukta — education, service and awareness.",
+              p: "Working as a campaign in the flood-hit diara of Gopalganj and the Gandak basin: free schooling, humanitarian service, and a bridge between government schemes and the people they are meant for.",
+            },
+          ].map((b, i) => (
+            <Reveal key={b.k} delay={i * 100} className="rounded-[var(--radius-card)] border border-white/10 p-8 sm:p-10">
+              <p className="eyebrow !text-marigold-300">{b.k}</p>
+              <h2 className="display mt-5 text-3xl sm:text-4xl">{b.h}</h2>
+              <p className="mt-5 leading-relaxed text-river-200">{b.p}</p>
             </Reveal>
           ))}
         </div>
       </section>
 
-      {/* Team */}
-      <section className="bg-brand-50/60">
-        <div className="container-page py-20">
-          <SectionHeading
-            eyebrow="The people behind the mission"
-            title="Team Shatakshi"
-            subtitle="A founder, a family and a band of volunteers who turned their birthplace into their karmabhoomi."
-          />
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {team.map((m, i) => (
-              <Reveal
-                key={m.name}
-                delay={(i % 3) * 100}
-                className="flex items-center gap-4 rounded-3xl border border-brand-100 bg-white p-6"
-              >
-                <span className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 font-display text-lg font-bold text-white">
-                  {m.initials}
-                </span>
-                <div>
-                  <h3 className="font-display text-lg font-bold text-brand-900">
-                    {m.name}
-                  </h3>
-                  <p className="text-sm text-ink/60">{m.role}</p>
-                </div>
+      {/* Timeline */}
+      <section className="py-20 sm:py-28">
+        <div className="container-page grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
+          <SectionHeading eyebrow="Our journey" title="From one riverbank to four centres." />
+          <ol className="relative border-l-2 border-line pl-8">
+            {timeline.map((t, i) => (
+              <Reveal as="li" key={t.year} delay={i * 60} className="relative pb-10 last:pb-0">
+                <span className="absolute -left-[41px] top-1 h-4 w-4 rounded-full border-[3px] border-sand-50 bg-marigold-500 ring-2 ring-marigold-200" />
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-marigold-700">{t.year}</p>
+                <p className="mt-2 text-lg leading-relaxed text-river-950">{t.text}</p>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="bg-sand-100 py-20 sm:py-28">
+        <div className="container-page">
+          <SectionHeading eyebrow="Core values" title="What we hold on to." align="center" />
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {coreValues.map((v, i) => (
+              <Reveal key={v.title} delay={i * 70} className="rounded-[var(--radius-card)] bg-white p-6">
+                <p className="font-hindi text-2xl text-marigold-600">{v.hindi}</p>
+                <h3 className="display mt-2 text-xl text-river-950">{v.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{v.desc}</p>
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
 
-          <Reveal className="mt-12 flex flex-col items-center gap-4 rounded-3xl border border-saffron-200 bg-saffron-50 p-8 text-center sm:flex-row sm:text-left">
-            <Award className="h-12 w-12 shrink-0 text-saffron-600" />
+      {/* Team */}
+      <section className="py-20 sm:py-28">
+        <div className="container-page">
+          <div className="grid items-end gap-10 lg:grid-cols-2">
+            <SectionHeading eyebrow="Team Shatakshi" title="The people on the ground." intro="A core team, dozens of volunteers, and a partner in Share India." />
+            <Photo src={photo.team} alt="Team Shatakshi volunteers in uniform" className="aspect-[16/9]" sizes="(min-width: 1024px) 560px, 100vw" />
+          </div>
+          <ul className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+            {team.map((m, i) => (
+              <Reveal as="li" key={m.name} delay={i * 60}>
+                {m.image ? (
+                  <Photo src={m.image} alt={m.name} className="aspect-square" sizes="200px" />
+                ) : (
+                  <div className="grid aspect-square place-items-center rounded-[var(--radius-card)] bg-river-50">
+                    <span className="display text-4xl text-river-300">
+                      {m.name.split(" ").map((w) => w[0]).join("")}
+                    </span>
+                  </div>
+                )}
+                <p className="mt-3 font-bold text-river-950">{m.name}</p>
+                <p className="text-sm text-ink-mute">{m.role}</p>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Recognition */}
+      <section className="pb-6">
+        <div className="container-page">
+          <Reveal className="grid items-center gap-10 rounded-[2rem] bg-marigold-50 p-8 sm:p-12 lg:grid-cols-[0.6fr_1.4fr]">
+            <Photo src={photo.award} alt="Recognition from the former President of Mauritius, March 2026" className="aspect-square" sizes="320px" />
             <div>
-              <h3 className="font-display text-lg font-bold text-saffron-900">
-                Recognised internationally
-              </h3>
-              <p className="mt-1 text-sm text-saffron-800/80">
-                Founder Naveen Shrivastava — &ldquo;The good Samaritan from
-                Bihar&rdquo; — has been honoured with an award from the former
-                President of Mauritius and featured by ETV Bharat, BBC and The
-                Hindu for his humanitarian work.
+              <p className="eyebrow">Recognition</p>
+              <h2 className="display mt-4 text-3xl text-river-950 sm:text-4xl">
+                Honoured by the former President of Mauritius, March 2026.
+              </h2>
+              <p className="mt-4 leading-relaxed text-ink-soft">
+                The work of Team Shatakshi has been featured by The Hindu (“The good Samaritan
+                from Bihar who is giving a dignified farewell to strangers”), BBC Urdu, ETV
+                Bharat, DD News Bihar, Dainik Jagran and Humans of Bombay.
               </p>
             </div>
           </Reveal>
         </div>
       </section>
 
-      <DonationCTA />
-      <div className="h-8" />
+      <div className="mt-20"><PressStrip /></div>
+      <DonationBand />
     </>
   );
 }

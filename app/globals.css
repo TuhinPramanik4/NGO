@@ -1,36 +1,59 @@
 @import "tailwindcss";
 
+/*
+ * Shatakshi — brand tokens
+ * ------------------------------------------------------------------
+ * River   — the Gandak; trust, depth, the diara belt we serve.
+ * Marigold — seva; the warmth of the diya and the saffron ribbon.
+ * Sindoor — reserved accent for urgency and for Voice of Silence.
+ * Sand    — alluvial silt; the quiet canvas everything sits on.
+ */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-hindi: var(--font-tiro), var(--font-fraunces), serif;
 
-  /* Brand green — "Seva Parmo Dharma" */
-  --color-brand-50: #f0fdf4;
-  --color-brand-100: #dcfce7;
-  --color-brand-200: #bbf7d0;
-  --color-brand-300: #86efac;
-  --color-brand-400: #4ade80;
-  --color-brand-500: #22a55a;
-  --color-brand-600: #168045;
-  --color-brand-700: #146638;
-  --color-brand-800: #14512f;
-  --color-brand-900: #123f27;
-  --color-brand-950: #052e16;
+  --color-sand-50: #fcfaf5;
+  --color-sand-100: #f6f0e4;
+  --color-sand-200: #ece2cf;
+  --color-sand-300: #dccdb2;
+  --color-sand-400: #c2ad8a;
 
-  /* Saffron accent */
-  --color-saffron-50: #fff8ed;
-  --color-saffron-100: #ffefd4;
-  --color-saffron-200: #fedba9;
-  --color-saffron-300: #fdc072;
-  --color-saffron-400: #fb9a39;
-  --color-saffron-500: #f97f16;
-  --color-saffron-600: #ea640b;
-  --color-saffron-700: #c24a0c;
-  --color-saffron-800: #9a3b12;
-  --color-saffron-900: #7c3212;
+  --color-river-50: #eef6f4;
+  --color-river-100: #d8ebe6;
+  --color-river-200: #b0d6cd;
+  --color-river-300: #7dbaad;
+  --color-river-400: #4b9a8b;
+  --color-river-500: #2a7d6f;
+  --color-river-600: #1d685c;
+  --color-river-700: #17554c;
+  --color-river-800: #12443d;
+  --color-river-900: #0e3530;
+  --color-river-950: #08221f;
 
-  --color-cream: #fbf9f4;
-  --color-ink: #1a2e22;
+  --color-marigold-50: #fff7ea;
+  --color-marigold-100: #ffeacb;
+  --color-marigold-200: #fdd394;
+  --color-marigold-300: #f9b75a;
+  --color-marigold-400: #f39f31;
+  --color-marigold-500: #e8891c;
+  --color-marigold-600: #c96e10;
+  --color-marigold-700: #a0550f;
+  --color-marigold-800: #7f4412;
+
+  --color-sindoor-50: #fdf1ee;
+  --color-sindoor-100: #f9dcd5;
+  --color-sindoor-500: #c8452e;
+  --color-sindoor-600: #a93723;
+  --color-sindoor-700: #872c1d;
+
+  --color-ink: #1a1d1b;
+  --color-ink-soft: #4a514c;
+  --color-ink-mute: #7a807b;
+  --color-line: #e6dccb;
+
+  --radius-card: 1.25rem;
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root {
@@ -42,75 +65,205 @@ html {
 }
 
 body {
-  background-color: var(--color-cream);
+  background-color: var(--color-sand-50);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Reusable layout helpers */
+::selection {
+  background: var(--color-marigold-200);
+  color: var(--color-river-950);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-marigold-500);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 @layer components {
   .container-page {
     width: 100%;
     margin-inline: auto;
-    max-width: 80rem;
+    max-width: 76rem;
     padding-inline: 1.25rem;
   }
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* Small all-caps label that sits above headings */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-river-600);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.5rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-marigold-500);
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-variation-settings: "SOFT" 50, "opsz" 96;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.8rem 1.4rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+      transform 0.2s var(--ease-out-soft), box-shadow 0.2s;
+    white-space: nowrap;
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn-primary {
+    background: var(--color-marigold-500);
+    color: var(--color-river-950);
+    box-shadow: 0 8px 24px -10px rgb(232 137 28 / 0.7);
+  }
+  .btn-primary:hover {
+    background: var(--color-marigold-400);
+  }
+  .btn-dark {
+    background: var(--color-river-900);
+    color: var(--color-sand-50);
+  }
+  .btn-dark:hover {
+    background: var(--color-river-800);
+  }
+  .btn-ghost {
+    border: 1.5px solid var(--color-line);
+    color: var(--color-river-900);
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-river-900);
+  }
+  .btn-light {
+    border: 1.5px solid rgb(255 255 255 / 0.3);
+    color: var(--color-sand-50);
+  }
+  .btn-light:hover {
+    background: rgb(255 255 255 / 0.1);
+    border-color: rgb(255 255 255 / 0.6);
+  }
+
+  /* Form controls */
+  .field {
+    width: 100%;
+    border-radius: 0.85rem;
+    border: 1.5px solid var(--color-line);
+    background: white;
+    padding: 0.8rem 1rem;
+    color: var(--color-ink);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field::placeholder {
+    color: var(--color-ink-mute);
+  }
+  .field:focus {
+    border-color: var(--color-river-500);
+    box-shadow: 0 0 0 4px var(--color-river-100);
+  }
+  .field-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-river-900);
+  }
+
+  /* Photo treatment: real field photos are low-res phone shots, so we
+     frame them, warm them slightly and add grain to unify the set. */
+  .photo {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-sand-200);
+  }
+  .photo img {
+    filter: saturate(0.92) contrast(1.04) sepia(0.06);
+  }
+  .photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.22;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.25  0 0 0 0 0.2  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* Hand-drawn style underline for a highlighted word */
+  .mark {
+    background-image: linear-gradient(
+      transparent 62%,
+      var(--color-marigold-200) 62%,
+      var(--color-marigold-200) 92%,
+      transparent 92%
+    );
+    padding-inline: 0.08em;
+  }
+
+  /* Diara "river lines" texture */
+  .bg-river-lines {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='60' viewBox='0 0 240 60'><path d='M0 30 C 40 10, 80 50, 120 30 S 200 10, 240 30' fill='none' stroke='white' stroke-opacity='.07' stroke-width='1.5'/></svg>");
+    background-size: 240px 60px;
+  }
 }
 
-/* Animations */
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Motion */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.8s var(--ease-out-soft), transform 0.8s var(--ease-out-soft);
 }
-
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
 }
 
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
-
-.animate-fade-up {
-  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.animate-float-slow {
-  animation: float-slow 6s ease-in-out infinite;
-}
 .animate-marquee {
-  animation: marquee 32s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+@keyframes flicker {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.04, 0.97) rotate(-1.5deg); }
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.animate-flicker {
+  transform-origin: 50% 85%;
+  animation: flicker 3.2s ease-in-out infinite;
 }
 
-::selection {
-  background: var(--color-brand-200);
-  color: var(--color-brand-900);
-}
-
-/* Subtle dotted texture used in hero / sections */
-.bg-dot-grid {
-  background-image: radial-gradient(
-    var(--color-brand-200) 1px,
-    transparent 1px
-  );
-  background-size: 22px 22px;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-marquee, .animate-flicker { animation: none; }
 }
