@@ -30,13 +30,17 @@ export function Photo({
   frameClass?: string;
   rounded?: string;
 }) {
+  // Observe the unclipped outer frame. The inner layer starts fully clipped
+  // (clip-path inset 100%), and a fully clipped element never reports as
+  // intersecting, so watching it directly would leave the photo hidden.
   const { ref, inView } = useInView<HTMLDivElement>(0.1);
   const frame = (
-    <div
-      ref={ref}
-      className={`photo card-img ${reveal ? `photo-reveal ${inView ? "is-visible" : ""}` : ""} ${caption ? frameClass : className}`}
-    >
-      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover" />
+    <div ref={ref} className={`relative overflow-hidden ${caption ? frameClass : className}`}>
+      <div
+        className={`photo card-img absolute inset-0 ${reveal ? `photo-reveal ${inView ? "is-visible" : ""}` : ""}`}
+      >
+        <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover" />
+      </div>
     </div>
   );
   if (!caption) return frame;
