@@ -1,140 +1,112 @@
 import type { Metadata } from "next";
+import { big, stock } from "@/lib/images";
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
-import PageHeader from "@/components/PageHeader";
+import { Megaphone, Phone } from "lucide-react";
 import Reveal from "@/components/Reveal";
-import DonationCTA from "@/components/DonationCTA";
-import { programs } from "@/lib/data";
+import { PageHero, Photo } from "@/components/ui";
+import { DonationBand } from "@/components/blocks";
+import { helpline, org, pillars, programBySlug, tone } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Programs",
   description:
-    "Explore the six initiatives of Shatakshi Seva Sansthan — from Mission Arms to Pen and Annapurna Kitchen to the free ambulance service and dignified last rites.",
+"Six programs across education, service and awareness — Mission Arms to Pen, Voice of Silence, Jal Pathshala, Annapurna Kitchen, Shatakshi Life Line and Antim Vidai.",
 };
 
 export default function ProgramsPage() {
   return (
     <>
-      <PageHeader
-        crumb="Programs"
-        eyebrow="What we do"
-        title="Six programs, one promise of dignity"
-        subtitle="Each initiative answers a real need of the diara belt — education, food, healthcare, empowerment, disaster resilience and the right to a dignified farewell."
-      />
-
-      {/* Quick nav */}
-      <section className="border-b border-brand-100 bg-white/70 backdrop-blur">
-        <div className="container-page flex gap-3 overflow-x-auto py-4">
-          {programs.map((p) => (
-            <a
-              key={p.slug}
-              href={`#${p.slug}`}
-              className="whitespace-nowrap rounded-full border border-brand-200 px-4 py-2 text-sm font-medium text-brand-700 transition-colors hover:bg-brand-100"
-            >
-              {p.name}
+      <PageHero
+        eyebrow="Programs"
+        image={big(stock.girlsClassroom)}
+        imageAlt="Girls in a village classroom"
+        title="Our Programmes"
+        intro="Every programme sits under शिक्षा, सेवा and जागरूकता — education, service and awareness — the three parts of the ring in our mark."
+      >
+        <nav aria-label="Pillars" className="rise mt-8 flex flex-wrap gap-2" style={{ animationDelay: "300ms" }}>
+          {pillars.map((pl) => (
+            <a key={pl.key} href={`#${pl.key}`} className="border border-sand-50/40 px-4 py-2 text-sm text-sand-50 transition-colors hover:bg-sand-50 hover:text-ink">
+              <span className="font-hindi mr-1.5 font-normal">{pl.hindi}</span> {pl.name}
             </a>
           ))}
+        </nav>
+      </PageHero>
+
+      {pillars.slice(0, 2).map((pl) => {
+        const t = tone[pl.tone];
+        return (
+          <section key={pl.key} id={pl.key} className="scroll-mt-28 border-b border-line py-20 sm:py-24">
+            <div className="container-page">
+              <div className="flex items-baseline gap-4">
+                <h2 className={`font-hindi text-5xl ${t.text}`}>{pl.hindi}</h2>
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-ink-mute">{pl.name}</p>
+              </div>
+              <p className="mt-3 max-w-xl text-lg text-ink-soft">{pl.line}</p>
+
+              <div className="mt-12 grid gap-16">
+                {pl.programs.map((slug, i) => {
+                  const p = programBySlug(slug)!;
+                  const pt = tone[p.tone];
+                  const Icon = p.icon;
+                  return (
+                    <Reveal key={slug} className={`grid items-center gap-10 lg:grid-cols-2 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
+                      <Photo src={p.image} alt={p.name} className="aspect-[4/3]" sizes="(min-width: 1024px) 560px, 100vw" />
+                      <div>
+                        <span className={`inline-grid h-12 w-12 place-items-center  ${pt.icon}`}>
+                          <Icon className="h-5 w-5" />
+                        </span>
+                        <p className={`font-hindi mt-5 text-lg ${pt.text}`}>{p.hindiName}</p>
+                        <h3 className="display mt-1 text-4xl text-river-950">{p.name}</h3>
+                        <p className="mt-4 text-lg leading-relaxed text-ink-soft">{p.tagline}</p>
+                        <dl className="mt-7 grid grid-cols-3 gap-4 border-y border-line py-5">
+                          {p.highlights.map((h) => (
+                            <div key={h.label}>
+                              <dt className="text-xs text-ink-mute">{h.label}</dt>
+                              <dd className="display mt-1 text-xl text-river-900">{h.value}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                        <div className="mt-7 flex flex-wrap gap-3">
+                          <Link href={`/programs/${p.slug}`} className="btn btn-dark">Explore programme</Link>
+                          <Link href={`/donate?cause=${encodeURIComponent(p.donationCategory)}`} className="btn btn-ghost">
+                            Support this
+                          </Link>
+                        </div>
+                      </div>
+                    </Reveal>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        );
+      })}
+
+      {/* Awareness */}
+      <section id="jagrukta" className="scroll-mt-28 bg-river-950 py-20 text-sand-50 sm:py-24">
+        <div className="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <div className="flex items-baseline gap-4">
+              <h2 className="font-hindi text-5xl text-sindoor-100">जागरूकता</h2>
+              <p className="text-sm font-bold uppercase tracking-[0.16em] text-river-300">Awareness</p>
+            </div>
+            <p className="mt-6 inline-flex items-center gap-2  bg-white/10 px-4 py-2 text-sm font-bold">
+              <Megaphone className="h-4 w-4 text-marigold-300" /> {helpline.name}
+            </p>
+          </div>
+          <div>
+            <p className="display text-3xl leading-snug sm:text-4xl">
+              A 24×7 bridge between government schemes and the families they were written for.
+            </p>
+            <p className="mt-6 text-lg leading-relaxed text-river-200">{helpline.summary}</p>
+            <a href={`tel:+${org.phoneRaw}`} className="btn btn-primary mt-8">
+              <Phone className="h-4 w-4" /> Call the helpline
+            </a>
+          </div>
         </div>
       </section>
 
-      <div className="container-page space-y-20 py-20">
-        {programs.map((program, i) => {
-          const Icon = program.icon;
-          const reversed = i % 2 === 1;
-          return (
-            <Reveal
-              key={program.slug}
-              id={program.slug}
-              className="scroll-mt-28"
-            >
-              <div
-                className={`grid items-center gap-10 lg:grid-cols-2 ${
-                  reversed ? "" : ""
-                }`}
-              >
-                {/* Visual */}
-                <div className={reversed ? "lg:order-2" : ""}>
-                  <div className="relative flex aspect-[4/3] flex-col justify-between overflow-hidden rounded-[2rem] p-8 text-white shadow-xl">
-                    <Image
-                      src={program.image}
-                      alt={program.name}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover"
-                    />
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-tr ${program.color} opacity-80 mix-blend-multiply`}
-                    />
-                    <div className="absolute inset-0 bg-black/15" />
-                    <span className="relative grid h-16 w-16 place-items-center rounded-2xl bg-white/20 backdrop-blur ring-1 ring-white/30">
-                      <Icon className="h-8 w-8" />
-                    </span>
-                    <div className="relative">
-                      {program.hindiName && (
-                        <p className="font-display text-2xl font-bold">
-                          {program.hindiName}
-                        </p>
-                      )}
-                      <p className="mt-1 text-sm text-white/80">
-                        {program.tagline}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="mt-4 grid grid-cols-3 gap-3">
-                    {program.highlights.map((h) => (
-                      <div
-                        key={h.label}
-                        className="rounded-2xl border border-brand-100 bg-white p-4 text-center"
-                      >
-                        <p className="font-display text-lg font-extrabold text-brand-700">
-                          {h.value}
-                        </p>
-                        <p className="mt-0.5 text-[11px] leading-tight text-ink/55">
-                          {h.label}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Copy */}
-                <div className={reversed ? "lg:order-1" : ""}>
-                  <span className="text-sm font-semibold uppercase tracking-wider text-saffron-600">
-                    Program {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h2 className="mt-2 font-display text-3xl font-bold text-brand-900">
-                    {program.name}
-                  </h2>
-                  <p className="mt-4 leading-relaxed text-ink/70">
-                    {program.overview}
-                  </p>
-                  <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
-                    {program.objectives.map((o) => (
-                      <li key={o} className="flex gap-2.5 text-sm text-ink/70">
-                        <CheckCircle2 className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-500" />
-                        {o}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href={`/donate?cause=${encodeURIComponent(
-                      program.donationCategory
-                    )}`}
-                    className="mt-7 inline-flex items-center gap-2 rounded-full bg-brand-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-800"
-                  >
-                    Support this program
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </Reveal>
-          );
-        })}
-      </div>
-
-      <DonationCTA />
-      <div className="h-8" />
+      <DonationBand />
     </>
   );
 }

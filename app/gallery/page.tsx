@@ -1,57 +1,41 @@
 import type { Metadata } from "next";
-import { PlayCircle } from "lucide-react";
-import PageHeader from "@/components/PageHeader";
 import GalleryGrid from "@/components/GalleryGrid";
-import { promoVideo } from "@/lib/images";
+import { PageHero, SectionHeading } from "@/components/ui";
+import { promoVideo, big, stock } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Gallery",
-  description:
-    "Photos and videos from the field — education centres, the Annapurna Kitchen, the free ambulance service, disaster relief and events.",
+  description: "Photos and videos from Shatakshi's work in Gopalganj, Bihar.",
 };
 
 export default function GalleryPage() {
   return (
     <>
-      <PageHeader
-        crumb="Gallery"
-        eyebrow="Moments from the field"
-        title="Seva, in pictures"
-        subtitle="A glimpse of life across our learning centres, kitchen rounds, ambulance calls and community events. (Image placeholders — drop in real photos when ready.)"
+      <PageHero
+        eyebrow="Gallery"
+        image={big(stock.womenGathering)}
+        imageAlt="Women at a village gathering"
+        title="Gallery"
+        intro="Photographs taken by Team Shatakshi in classrooms, kitchens, ambulances and the flood itself."
       />
-      {/* Featured video */}
-      <section className="container-page pt-14">
-        <div className="overflow-hidden rounded-[2rem] border border-brand-100 bg-brand-950 shadow-xl">
-          <div className="grid lg:grid-cols-[1fr_1.4fr]">
-            <div className="flex flex-col justify-center p-8 text-white sm:p-10">
-              <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-saffron-200">
-                <PlayCircle className="h-4 w-4" />
-                Watch our story
-              </span>
-              <h2 className="mt-5 font-display text-2xl font-bold leading-tight sm:text-3xl">
-                A decade of seva, in motion
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-brand-100/80">
-                From classrooms in the diara belt to meals at an elder&apos;s
-                doorstep — see the mission of Shatakshi Seva Sansthan come alive.
-              </p>
-            </div>
-            <div className="relative aspect-video w-full">
-              <iframe
-                src={`https://player.vimeo.com/video/${promoVideo.vimeoId}?title=0&byline=0&portrait=0`}
-                title="Shatakshi Seva Sansthan"
-                className="absolute inset-0 h-full w-full"
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              />
-            </div>
-          </div>
+      <section className="py-16 sm:py-20">
+        <div className="container-page">
+          <GalleryGrid />
         </div>
       </section>
-
-      <section className="container-page py-16">
-        <GalleryGrid />
+      <section className="bg-river-950 py-20 sm:py-28">
+        <div className="container-page">
+          <SectionHeading tone="light" eyebrow="Video" title="A film about our work" />
+          <div className="mt-10 aspect-video overflow-hidden rounded-[var(--radius-card)] bg-black">
+            <iframe
+              src={`https://player.vimeo.com/video/${promoVideo.vimeoId}?dnt=1&title=0&byline=0&portrait=0`}
+              title="Shatakshi Seva Sansthan — film"
+              loading="lazy"
+              allow="fullscreen; picture-in-picture"
+              className="h-full w-full"
+            />
+          </div>
+        </div>
       </section>
     </>
   );

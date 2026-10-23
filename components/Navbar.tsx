@@ -3,127 +3,126 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, X, Heart, Phone } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import Logo from "@/components/brand/Logo";
 import { navLinks, org } from "@/lib/data";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => setOpen(false), [pathname]);
+
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+    document.body.style.overflow = open ? "hidden" : "";
+  }, [open]);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-cream/90 shadow-[0_2px_24px_-12px_rgba(20,81,47,0.4)] backdrop-blur"
-          : "bg-cream/40 backdrop-blur-sm"
-      }`}
-    >
-      <div className="container-page flex h-18 items-center justify-between py-3">
-        {/* Logo */}
-        <Link href="/" className="group flex items-center gap-3">
-          <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-lg shadow-brand-700/30 transition-transform group-hover:scale-105">
-            <Heart className="h-5 w-5 fill-white" />
-          </span>
-          <span className="leading-tight">
-            <span className="block font-display text-base font-bold text-brand-800">
-              Shatakshi
-            </span>
-            <span className="block text-[11px] font-medium tracking-wide text-brand-600/80">
-              Seva Sansthan
-            </span>
-          </span>
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => {
-            const active =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                  active
-                    ? "bg-brand-100 text-brand-800"
-                    : "text-ink/70 hover:bg-brand-50 hover:text-brand-700"
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href={`tel:${org.phoneRaw}`}
-            className="flex items-center gap-2 text-sm font-medium text-brand-700 hover:text-brand-800"
-          >
-            <Phone className="h-4 w-4" />
-            {org.phone}
+    <header className="sticky top-0 z-50">
+      {/* Masthead strip */}
+      <div className="hidden bg-river-950 text-[0.72rem] tracking-[0.06em] text-river-200 md:block">
+        <div className="container-page flex h-9 items-center justify-between">
+          <p>
+            <span className="font-hindi text-[0.85rem] text-marigold-300">{org.motto}</span>
+            <span className="mx-3 text-river-500">|</span>
+            Regd. Trust No. {org.regNo} · 12-A &amp; 80-G
+          </p>
+          <a href={`tel:+${org.phoneRaw}`} className="transition-colors hover:text-white">
+            Ambulance &amp; helpline, 24 hours · <span className="text-sand-50">{org.phone}</span>
           </a>
-          <Link
-            href="/donate"
-            className="rounded-full bg-saffron-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-saffron-500/30 transition-all hover:bg-saffron-600 hover:shadow-saffron-500/40"
-          >
-            Donate Now
-          </Link>
         </div>
-
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="grid h-11 w-11 place-items-center rounded-xl text-brand-800 hover:bg-brand-50 lg:hidden"
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
       </div>
 
-      {/* Mobile menu */}
       <div
-        className={`overflow-hidden border-t border-brand-100 bg-cream transition-[max-height] duration-300 lg:hidden ${
-          open ? "max-h-[32rem]" : "max-h-0"
+        className={`border-b bg-sand-50/95 backdrop-blur-sm transition-[border-color,box-shadow] duration-500 ${
+          scrolled || open ? "border-line shadow-[0_8px_30px_-24px_rgb(29_27_23/0.5)]" : "border-transparent"
         }`}
       >
-        <nav className="container-page flex flex-col gap-1 py-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="rounded-xl px-4 py-3 text-sm font-medium text-ink/80 hover:bg-brand-50 hover:text-brand-700"
-            >
-              {link.label}
+        <nav
+          aria-label="Main"
+          className={`container-page flex items-center justify-between gap-6 transition-[height] duration-500 ease-[var(--ease-out-soft)] ${
+            scrolled ? "h-16" : "h-[84px]"
+          }`}
+        >
+          <Logo />
+
+          <ul className="hidden items-center gap-7 lg:flex">
+            {navLinks.map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  aria-current={isActive(l.href) ? "page" : undefined}
+                  className={`group relative py-2 text-[0.74rem] font-semibold uppercase tracking-[0.16em] transition-colors ${
+                    isActive(l.href) ? "text-sindoor-600" : "text-ink-soft hover:text-ink"
+                  }`}
+                >
+                  {l.label}
+                  <span
+                    className={`absolute inset-x-0 bottom-0 h-px origin-left bg-current transition-transform duration-500 ${
+                      isActive(l.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-2">
+            <Link href="/donate" className="btn btn-primary hidden !px-5 !py-3 sm:inline-flex">
+              Donate
             </Link>
-          ))}
-          <Link
-            href="/volunteer"
-            className="rounded-xl px-4 py-3 text-sm font-medium text-ink/80 hover:bg-brand-50 hover:text-brand-700"
-          >
-            Volunteer
-          </Link>
-          <Link
-            href="/donate"
-            className="mt-2 rounded-full bg-saffron-500 px-5 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-saffron-500/30"
-          >
-            Donate Now
-          </Link>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="grid h-11 w-11 place-items-center border border-line text-ink lg:hidden"
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </nav>
+      </div>
+
+      {/* Mobile sheet */}
+      <div
+        id="mobile-menu"
+        hidden={!open}
+        className={`fixed inset-x-0 bottom-0 overflow-y-auto bg-sand-50 lg:hidden ${scrolled ? "top-16" : "top-[84px]"}`}
+      >
+        <ul className="container-page py-6">
+          {[{ label: "Home", href: "/" }, ...navLinks].map((l, i) => (
+            <li key={l.href} className="border-b border-line">
+              <Link
+                href={l.href}
+                className={`display flex items-baseline gap-4 py-4 text-3xl ${
+                  isActive(l.href) ? "text-sindoor-600" : "text-ink"
+                }`}
+              >
+                <span className="font-sans text-xs tracking-[0.2em] text-ink-mute">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="container-page grid gap-3 pb-10">
+          <Link href="/donate" className="btn btn-primary w-full">Donate</Link>
+          <a href={`tel:+${org.phoneRaw}`} className="btn btn-ghost w-full">Call {org.phone}</a>
+        </div>
       </div>
     </header>
   );

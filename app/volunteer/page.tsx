@@ -1,74 +1,49 @@
 import type { Metadata } from "next";
-import { HandHeart, Users, GraduationCap, Sparkles } from "lucide-react";
-import PageHeader from "@/components/PageHeader";
-import VolunteerForm from "@/components/VolunteerForm";
+import VolunteerForm from "@/components/forms/VolunteerForm";
+import { PageHero, Photo } from "@/components/ui";
+import { photo, big, stock } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Volunteer",
-  description:
-    "Join Team Shatakshi. Teach a child, ride along with the ambulance, or help run the Annapurna Kitchen in the diara region of Gopalganj.",
+  description: "Join Team Shatakshi — teach, cook, drive, document or fundraise.",
 };
 
-const reasons = [
-  { icon: GraduationCap, title: "Teach & mentor", desc: "Help first-generation learners read, write and dream bigger." },
-  { icon: HandHeart, title: "Serve on the ground", desc: "Join meal rounds, relief drives and community awareness work." },
-  { icon: Users, title: "Lend your skills", desc: "Design, tech, fundraising, logistics — every skill finds a place." },
-  { icon: Sparkles, title: "Be the change", desc: "Turn a few hours a week into lasting impact for a forgotten region." },
+const steps = [
+  ["Register", "Tell us who you are and what you'd like to do."],
+  ["We call you", "Someone from the team reaches out within a week."],
+  ["Meet the team", "An orientation visit to a centre in Gopalganj — or a call if you're remote."],
+  ["Start serving", "Teaching, kitchen runs, flood relief, media — wherever you fit."],
 ];
 
 export default function VolunteerPage() {
   return (
     <>
-      <PageHeader
-        crumb="Volunteer"
-        eyebrow="Become a volunteer"
-        title="Give your time, change a life"
-        subtitle="The mission grew from one family to a whole community of helpers. There's a place for you in it."
+      <PageHero
+        eyebrow="Volunteer"
+        image={big(stock.womenFields)}
+        imageAlt="Women working together in a field"
+        title={<>Volunteer <em>with us</em></>}
+        intro="Team Shatakshi runs on volunteers — teachers, cooks, drivers, photographers and people who simply show up during the flood."
       />
-
-      <section className="container-page py-16">
-        <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.05fr]">
-          <div className="lg:sticky lg:top-28">
-            <h2 className="font-display text-2xl font-bold text-brand-900">
-              Why volunteer with us
-            </h2>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {reasons.map((r) => (
-                <div
-                  key={r.title}
-                  className="rounded-2xl border border-brand-100 bg-white p-5"
-                >
-                  <r.icon className="h-7 w-7 text-brand-600" />
-                  <h3 className="mt-3 font-display text-base font-bold text-brand-900">
-                    {r.title}
-                  </h3>
-                  <p className="mt-1 text-sm text-ink/60">{r.desc}</p>
-                </div>
+      <section className="py-16 sm:py-24">
+        <div className="container-page grid gap-14 lg:grid-cols-[0.85fr_1.15fr]">
+          <div>
+            <Photo src={photo.team} alt="Team Shatakshi volunteers" className="aspect-[16/10]" sizes="(min-width: 1024px) 460px, 100vw" />
+            <h2 className="display mt-12 text-3xl text-river-950">How it works</h2>
+            <ol className="mt-6 space-y-6">
+              {steps.map(([t, d], i) => (
+                <li key={t} className="flex gap-4">
+                  <span className="display grid h-10 w-10 shrink-0 place-items-center  bg-marigold-100 text-lg text-marigold-700">
+                    {i + 1}
+                  </span>
+                  <span>
+                    <span className="block font-bold text-river-950">{t}</span>
+                    <span className="text-ink-soft">{d}</span>
+                  </span>
+                </li>
               ))}
-            </div>
-
-            <div className="mt-7 rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 p-6 text-white">
-              <h3 className="font-display text-lg font-bold">
-                How it works
-              </h3>
-              <ol className="mt-4 space-y-3 text-sm text-brand-50/85">
-                {[
-                  "You submit the form with your interests and availability.",
-                  "Our team receives a notification and reviews your application.",
-                  "We call you to align on a role that fits.",
-                  "You receive a confirmation and join Team Shatakshi.",
-                ].map((step, i) => (
-                  <li key={i} className="flex gap-3">
-                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/15 text-xs font-bold">
-                      {i + 1}
-                    </span>
-                    {step}
-                  </li>
-                ))}
-              </ol>
-            </div>
+            </ol>
           </div>
-
           <VolunteerForm />
         </div>
       </section>
